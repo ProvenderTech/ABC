@@ -441,35 +441,35 @@ namespace ABC
             stop = pt + 35; if (stop > ptCount) stop = ptCount + 1;
 
             double distSq = widthMinusOverlap * widthMinusOverlap * 0.875;
-            bool fail = false;
+            //bool fail = false;
 
             for (int i = start; i < stop; i++)
             {
-                //var point = new vec3(
-                //    stripList[strip][i].easting + (Math.Sin(piSide + stripList[strip][i].heading) * widthMinusOverlap),
-                //    stripList[strip][i].northing + (Math.Cos(piSide + stripList[strip][i].heading) * widthMinusOverlap),
-                //    stripList[strip][i].heading);
-                //ctList.Add(point);
-
                 var point = new vec3(
                     stripList[strip][i].easting + (Math.Sin(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                     stripList[strip][i].northing + (Math.Cos(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                     stripList[strip][i].heading);
-                //ctList.Add(point);
+                ctList.Add(point);
 
-                //make sure its not closer then 1 eq width
-                for (int j = start; j < stop; j++)
-                {
-                    double check = glm.DistanceSquared(point.northing, point.easting, stripList[strip][j].northing, stripList[strip][j].easting);
-                    if (check < distSq)
-                    {
-                        fail = true;
-                        break;
-                    }
-                }
+                //var point = new vec3(
+                //    stripList[strip][i].easting + (Math.Sin(piSide + stripList[strip][i].heading) * widthMinusOverlap),
+                //    stripList[strip][i].northing + (Math.Cos(piSide + stripList[strip][i].heading) * widthMinusOverlap),
+                //    stripList[strip][i].heading);
+                ////ctList.Add(point);
 
-                if (!fail) ctList.Add(point);
-                fail = false;
+                ////make sure its not closer then 1 eq width
+                //for (int j = start; j < stop; j++)
+                //{
+                //    double check = glm.DistanceSquared(point.northing, point.easting, stripList[strip][j].northing, stripList[strip][j].easting);
+                //    if (check < distSq)
+                //    {
+                //        fail = true;
+                //        break;
+                //    }
+                //}
+
+                //if (!fail) ctList.Add(point);
+                //fail = false;
             }
 
             //int ctCount = ctList.Count;

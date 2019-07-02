@@ -124,4 +124,3 @@ C:\Users\Grizs\Desktop\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.CoreCompi
 C:\Users\Grizs\Desktop\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.CopyComplete
 C:\Users\Grizs\Desktop\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe
 C:\Users\Grizs\Desktop\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.pdb
-C:\Users\Grizs\Desktop\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csprojAssemblyReference.cache

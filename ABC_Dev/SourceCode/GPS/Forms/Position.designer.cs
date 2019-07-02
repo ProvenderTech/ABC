@@ -601,7 +601,7 @@ namespace ABC
                     sectionCounter++;
                 }
             }
-            if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) || 
+            if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) ||
                         (!ct.isContourBtnOn && curve.isCurveBtnOn && curve.isCurveSet && isAutoSteerBtnOn))
             {
                 //no contour recorded
@@ -610,50 +610,27 @@ namespace ABC
             else
             {
                 //if (ABLine.isABLineSet && isAutoSteerBtnOn)
-                if (isStanleyUsed)
+
+
+                //Contour Base Track.... At least One section on, turn on if not
+                if (sectionCounter != 0)
                 {
-                    //Contour Base Track.... At least One section on, turn on if not
-                    if (sectionCounter != 0)
+                    //keep the line going, everything is on for recording path
+                    if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
+                    else
                     {
-                        //keep the line going, everything is on for recording path
-                        if (ct.isContourOn) ct.AddPoint(steerAxlePos);
-                        else
-                        {
-                            ct.StartContourLine(steerAxlePos);
-                            ct.AddPoint(steerAxlePos);
-                        }
+                        ct.StartContourLine(pivotAxlePos);
+                        ct.AddPoint(pivotAxlePos);
                     }
-
-                    //All sections OFF so if on, turn off
-                    else { if (ct.isContourOn) { ct.StopContourLine(steerAxlePos); } }
-
-                    //Build contour line if close enough to a patch
-                    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(steerAxlePos);
-
                 }
 
-                else
-                {
-                    //Contour Base Track.... At least One section on, turn on if not
-                    if (sectionCounter != 0)
-                    {
-                        //keep the line going, everything is on for recording path
-                        if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-                        else
-                        {
-                            ct.StartContourLine(pivotAxlePos);
-                            ct.AddPoint(pivotAxlePos);
-                        }
-                    }
+                //All sections OFF so if on, turn off
+                else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
 
-                    //All sections OFF so if on, turn off
-                    else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
+                //Build contour line if close enough to a patch
+                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
 
-                    //Build contour line if close enough to a patch
-                    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
-                }
             }
-
         }
        
         //calculate the extreme tool left, right velocities, each section lookahead, and whether or not its going backwards

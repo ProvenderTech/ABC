@@ -1554,8 +1554,8 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panelBatman);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnZoomExtents);
             this.Controls.Add(this.btnZoomIn);
             this.Controls.Add(this.btnZoomOut);
