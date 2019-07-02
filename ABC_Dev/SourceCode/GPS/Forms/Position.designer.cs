@@ -80,18 +80,20 @@ namespace ABC
         public vec3[] stepFixPts = new vec3[60];
         public double distanceCurrentStepFix = 0, fixStepDist, minFixStepDist = 0;        
         bool isFixHolding = false, isFixHoldLoaded = false;
-        
+
         //called by watchdog timer every 50 ms
+        //called by watchdog timer every 10 ms
         private bool ScanForNMEA()
         {
+            //if saving a file ignore any movement
+            if (isSavingFile) return false;
+
             //parse any data from pn.rawBuffer
             pn.ParseNMEA();
 
             //time for a frame update with new valid nmea data
             if (pn.updatedGGA | pn.updatedOGI | pn.updatedRMC)
             {
-                //if saving a file ignore any movement
-                if (isSavingFile) return false;
 
                 //start the watch and time till it gets back here
                 swFrame.Reset();
@@ -111,18 +113,21 @@ namespace ABC
                 //new position updated
                 return true;
             }
-
-            //must make sure arduinos are kept off if initializing
             else
             {
-                if (!isGPSPositionInitialized)  mc.ResetAllModuleCommValues();
-            //Update the port connection counter - is reset every time new sentence is valid and ready
-                recvCounter++;
-
-                //no new data
-                return false;                
+                if (isGPSPositionInitialized)
+                {
+                    return false;
+                }
+                else
+                {
+                    mc.ResetAllModuleCommValues();
+                    recvCounter++;
+                    return false;
+                }
             }
         }
+
 
         public double eastingBeforeRoll;
         public double eastingAfterRoll;

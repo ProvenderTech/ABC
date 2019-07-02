@@ -216,7 +216,7 @@ Field	Meaning
             int cr = rawBuffer.IndexOf("\n", StringComparison.Ordinal);
             if (cr == -1) return; // No end found, wait for more data
 
-            // Find start of next sentence
+            // Find start of next sentence - as in the dollar sign  
             int dollar = rawBuffer.IndexOf("$", StringComparison.Ordinal);
             if (dollar == -1) return;
 
