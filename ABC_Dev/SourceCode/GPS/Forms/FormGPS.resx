@@ -2229,7 +2229,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACO
-        MgAAAk1TRnQBSQFMAgEBBAEAAVgBIAFYASABQAEAAUABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        MgAAAk1TRnQBSQFMAgEBBAEAAWABIAFgASABQAEAAUABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         BAABAQIAAYADAAEBAQABCAYAAYAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -4663,7 +4663,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnSmallSnapRight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 423</value>
+    <value>119, 321</value>
   </data>
   <data name="btnSmallSnapRight.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 35</value>
@@ -4702,7 +4702,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnSmallSnapLeft.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 423</value>
+    <value>6, 321</value>
   </data>
   <data name="btnSmallSnapLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 35</value>
@@ -4741,7 +4741,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnSnapRight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 476</value>
+    <value>119, 374</value>
   </data>
   <data name="btnSnapRight.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 35</value>
@@ -4882,7 +4882,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnSnapLeft.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 476</value>
+    <value>6, 374</value>
   </data>
   <data name="btnSnapLeft.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 35</value>
