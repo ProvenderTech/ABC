@@ -301,6 +301,9 @@ namespace ABC
             ToolTip ToolTip19 = new ToolTip();
             ToolTip19.SetToolTip(btnSection2Man, "btnSection2Man");
 
+            ToolTip ToolTip21 = new ToolTip();
+            ToolTip21.SetToolTip(btnSection3Man, "btnSection3Man");
+
             ToolTip ToolTip20 = new ToolTip();
             ToolTip20.SetToolTip(btnABLine, "Set and configure\n an ABLine");
 
