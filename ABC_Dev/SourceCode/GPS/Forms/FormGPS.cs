@@ -245,7 +245,64 @@ namespace ABC
         {
             //tooltips of controls
             ToolTip ToolTip1 = new ToolTip();
-            ToolTip1.SetToolTip(btnABLine, "Set and configure\n an ABLine");
+            ToolTip1.SetToolTip(btnAutoSteer, "btnAutoSteer");
+
+            ToolTip ToolTip2 = new ToolTip();
+            ToolTip2.SetToolTip(btnBigLeft2, "btnBigLeft2");
+
+            ToolTip ToolTip3 = new ToolTip();
+            ToolTip3.SetToolTip(btnBigRight2, "btnBigRight2");
+
+            ToolTip ToolTip4 = new ToolTip();
+            ToolTip4.SetToolTip(btnContour, "btnContour");
+
+            ToolTip ToolTip5 = new ToolTip();
+            ToolTip5.SetToolTip(btnContourPriority, "btnContourPriority");
+
+            ToolTip ToolTip6 = new ToolTip();
+            ToolTip6.SetToolTip(btnCurve, "btnCurve");
+
+            ToolTip ToolTip7 = new ToolTip();
+            ToolTip7.SetToolTip(btnFileExplorer, "btnFileExplorer");
+
+            ToolTip ToolTip8 = new ToolTip();
+            ToolTip8.SetToolTip(btnGPSData, "btnGPSData");
+
+            ToolTip ToolTip9 = new ToolTip();
+            ToolTip9.SetToolTip(btnHelp, "btnHelp");
+
+            ToolTip ToolTip10 = new ToolTip();
+            ToolTip10.SetToolTip(btnManualOffOn, "btnManualOffOn");
+
+            ToolTip ToolTip11 = new ToolTip();
+            ToolTip11.SetToolTip(btnpTiltDown, "btnpTiltDown");
+
+            ToolTip ToolTip12 = new ToolTip();
+            ToolTip12.SetToolTip(btnpTiltUp, "btnpTiltUp");
+
+            ToolTip ToolTip13 = new ToolTip();
+            ToolTip13.SetToolTip(btnResetSim, "btnResetSim");
+
+            ToolTip ToolTip14 = new ToolTip();
+            ToolTip14.SetToolTip(btnResetSteerAngle, "btnResetSteerAngle");
+
+            ToolTip ToolTip15 = new ToolTip();
+            ToolTip15.SetToolTip(btnSection10Man, "btnSection10Man");
+
+            ToolTip ToolTip16 = new ToolTip();
+            ToolTip16.SetToolTip(btnSection11Man, "btnSection11Man");
+
+            ToolTip ToolTip17 = new ToolTip();
+            ToolTip17.SetToolTip(btnSection12Man, "btnSection12Man");
+
+            ToolTip ToolTip18 = new ToolTip();
+            ToolTip18.SetToolTip(btnSection1Man, "btnSection1Man");
+
+            ToolTip ToolTip19 = new ToolTip();
+            ToolTip19.SetToolTip(btnSection2Man, "btnSection2Man");
+
+            ToolTip ToolTip20 = new ToolTip();
+            ToolTip20.SetToolTip(btnABLine, "Set and configure\n an ABLine");
 
             this.MouseWheel += ZoomByMouseWheel;
 
