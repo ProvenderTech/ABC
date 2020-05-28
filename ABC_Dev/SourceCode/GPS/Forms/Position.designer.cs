@@ -80,6 +80,11 @@ namespace ABC
         public vec3[] stepFixPts = new vec3[60];
         public double distanceCurrentStepFix = 0, fixStepDist, minFixStepDist = 0;        
         bool isFixHolding = false, isFixHoldLoaded = false;
+        public double eastingBeforeRoll;
+        public double eastingAfterRoll;
+        public double rollUsed;
+        private double offset = 0;
+        public double headlandDistanceDelta = 0, boundaryDistanceDelta = 0;
 
         //called by watchdog timer every 50 ms
         //called by watchdog timer every 10 ms
@@ -127,13 +132,6 @@ namespace ABC
                 }
             }
         }
-
-
-        public double eastingBeforeRoll;
-        public double eastingAfterRoll;
-        public double rollUsed;
-        private double offset = 0;
-        public double headlandDistanceDelta = 0, boundaryDistanceDelta = 0;
 
         private void UpdateFixPosition()
         {
@@ -390,7 +388,6 @@ namespace ABC
             //end of UppdateFixPosition
         }
 
-
         //all the hitch, pivot, section, trailing hitch, headings and fixes
         private void CalculatePositionHeading()
         {
@@ -569,12 +566,12 @@ namespace ABC
             else sectionTriggerStepDistance = vehicle.toolFarRightSpeed / metersPerSec;
 
             //finally determine distance
-            if (!curve.isOkToAddPoints) sectionTriggerStepDistance = sectionTriggerStepDistance * sectionTriggerStepDistance *
-                metersPerSec * triangleResolution * 2.0 + 1.0;
+            if (!curve.isOkToAddPoints) 
+                sectionTriggerStepDistance = sectionTriggerStepDistance * sectionTriggerStepDistance * metersPerSec * triangleResolution * 2.0 + 1.0;
             else sectionTriggerStepDistance = 1.0;
 
             //check to make sure the grid is big enough
-            worldGrid.checkZoomWorldGrid(pn.fix.northing, pn.fix.easting);
+            worldGrid.CheckZoomWorldGrid(pn.fix.northing, pn.fix.easting);
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPos.heading);
@@ -952,79 +949,3 @@ namespace ABC
 
     }//end class
 }//end namespace
-
-////its a drive thru inner boundary
-//else
-//{
-
-//    if (distPivot < yt.triggerDistance && distPivot > (yt.triggerDistance - 2.0) && !yt.isEnteringDriveThru && !yt.isInboundary && isBndInWay)
-//    {
-//        //our direction heading into turn
-//        //yt.youTurnTriggerPoint = pivotAxlePos;
-//        yt.isEnteringDriveThru = true;
-//        headlandAngleOffPerpendicular = Math.PI - Math.Abs(Math.Abs(hl.closestHeadlandPt.heading - pivotAxlePos.heading) - Math.PI);
-//        if (headlandAngleOffPerpendicular < 0) headlandAngleOffPerpendicular += glm.twoPI;
-//        //while (headlandAngleOffPerpendicular > 1.57) headlandAngleOffPerpendicular -= 1.57;
-//        headlandAngleOffPerpendicular -= glm.PIBy2;
-//        headlandDistanceDelta = Math.Tan(Math.Abs(headlandAngleOffPerpendicular));
-//        headlandDistanceDelta *= vehicle.toolWidth;
-//    }
-
-//    if (yt.isEnteringDriveThru)
-//    {
-//        int c = 0;
-//        for (int i = 0; i < FormGPS.MAXFUNCTIONS; i++)
-//        {
-//            //checked for any not triggered yet (false) - if there is, not done yet
-//            if (!seq.seqEnter[i].isTrig) c++;
-//        }
-
-//        if (c == 0)
-//        {
-//            //sequences all done so reset everything
-//            //yt.isSequenceTriggered = false;
-//            yt.whereAmI = 0;
-//            yt.ResetSequenceEventTriggers();
-//            distTool = -2222;
-//            yt.isEnteringDriveThru = false;
-//            yt.isExitingDriveThru = true;
-//            //yt.youTurnTriggerPoint = pivotAxlePos;
-//        }
-//    }
-
-//    if (yt.isExitingDriveThru)
-//    {
-//        int c = 0;
-//        for (int i = 0; i < FormGPS.MAXFUNCTIONS; i++)
-//        {
-//            //checked for any not triggered yet (false) - if there is, not done yet
-//            if (!seq.seqExit[i].isTrig) c++;
-//        }
-
-//        if (c == 0)
-//        {
-//            //sequences all done so reset everything
-//            //yt.isSequenceTriggered = false;
-//            yt.whereAmI = 0;
-//            yt.ResetSequenceEventTriggers();
-//            distTool = -2222;
-//            yt.isEnteringDriveThru = false;
-//            yt.isExitingDriveThru = false;
-//            yt.youTurnTriggerPoint = pivotAxlePos;
-//        }
-//    }
-//}
-
-//Do the sequencing of functions around the turn.
-//if (yt.isSequenceTriggered) yt.DoSequenceEvent();
-
-//do sequencing for drive thru boundaries
-//if (yt.isEnteringDriveThru || yt.isExitingDriveThru) yt.DoDriveThruSequenceEvent();
-
-//else //make sure youturn and sequence is off - we are not in normal turn here
-//{
-//    if (yt.isYouTurnTriggered | yt.isSequenceTriggered)
-//    {
-//        yt.ResetYouTurn();
-//    }
-//}

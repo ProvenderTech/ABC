@@ -70,7 +70,7 @@ namespace ABC
                 //GL.Disable(EnableCap.DepthTest);
                 GL.Enable(EnableCap.Blend);
 
-                ////if grid is on draw it
+                //if grid is on draw it
                 if (isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
 
                 //section patch color

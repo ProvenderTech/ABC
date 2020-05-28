@@ -33,9 +33,10 @@ C:\Users\Grizs\Documents\GitHub\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe
 C:\Users\Grizs\Documents\GitHub\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.pdb
 D:\Dev\ABC\ABC_Dev\Application\Dependencies\Landscape.png
 D:\Dev\ABC\ABC_Dev\Application\ABC.exe.config
+D:\Dev\ABC\ABC_Dev\Application\ABC.exe.manifest
+D:\Dev\ABC\ABC_Dev\Application\ABC.application
 D:\Dev\ABC\ABC_Dev\Application\ABC.exe
 D:\Dev\ABC\ABC_Dev\Application\ABC.pdb
-D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csprojAssemblyReference.cache
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.FormNtrip.resources
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.FormSim.resources
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.FormDisplaySettings.resources
@@ -61,10 +62,8 @@ D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.gStr.resources
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.Properties.Resources.resources
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.GenerateResource.cache
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.CoreCompileInputs.cache
+D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe.manifest
+D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.application
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.CopyComplete
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.pdb
-D:\Dev\ABC\ABC_Dev\Application\ABC.exe.manifest
-D:\Dev\ABC\ABC_Dev\Application\ABC.application
-D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe.manifest
-D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.application

@@ -1,6 +1,4 @@
-﻿//Please, if you use this, share the improvements
-
-using ABC.Properties;
+﻿using ABC.Properties;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -16,7 +14,9 @@ using System.Windows.Forms;
 
 namespace ABC
 {
-    //the main form object
+    /// <summary>
+    /// The main application for ABC
+    /// </summary>
     public partial class FormGPS : Form
     {
         #region // Class Props and instances
@@ -106,7 +106,6 @@ namespace ABC
 
         // couple of quick AB's
         public CQuicks AB0 = new CQuicks("Original", 2, 2, 2);
-
         public CQuicks AB1 = new CQuicks("North South", 0, 0, 0);
         public CQuicks AB2 = new CQuicks("East West", 90, 0, 0);
 
