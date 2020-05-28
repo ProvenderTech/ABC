@@ -29,7 +29,7 @@ namespace ABC
         //Record of the required value based on switch type
         private int triggerValue;
 
-        //Called from "OpenGL.Designer.cs" when requied
+        //Called from "OpenGL.Designer.cs" when required
         public void CheckWorkSwitch()
         {
             //Checks the type of workswitch -> records the trigger value
