@@ -67,3 +67,4 @@ D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.application
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csproj.CopyComplete
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.exe
 D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.pdb
+D:\Dev\ABC\ABC_Dev\SourceCode\GPS\obj\x86\Debug\ABC.csprojAssemblyReference.cache

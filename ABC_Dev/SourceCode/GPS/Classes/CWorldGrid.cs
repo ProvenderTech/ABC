@@ -55,7 +55,10 @@ namespace ABC
         /// <param name="gridZoom">used to determine how zoomed in the application is</param>
         public void DrawWorldGrid(double gridZoom)
         {
+            // ****** CHANGE THIS VALUE TO CHANGE THE COLOR OF THE GRID *******
             GL.Color3(.9, .5, .2);
+            // ****************************************************************
+
             //GL.LineWidth(1);
             GL.Begin(PrimitiveType.Lines);
             // Vertical lines 
