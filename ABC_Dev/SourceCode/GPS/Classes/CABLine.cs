@@ -174,7 +174,7 @@ namespace ABC
 
         public double angVel;
 
-        public void GetCurrentABLine(vec3 pivot, vec3 steer)
+        public void GetCurrentABLine(Vec3 pivot, Vec3 steer)
         {
             if (mf.isStanleyUsed)
             {

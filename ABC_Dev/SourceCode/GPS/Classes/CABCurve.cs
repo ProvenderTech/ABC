@@ -44,12 +44,12 @@ namespace ABC
         public bool isSmoothWindowOpen;
 
         //the list of points of the ref line.
-        public List<vec3> refList = new List<vec3>();
+        public List<Vec3> refList = new List<Vec3>();
 
-        public List<vec3> smooList = new List<vec3>();
+        public List<Vec3> smooList = new List<Vec3>();
 
         //the list of points of curve to drive on
-        public List<vec3> curList = new List<vec3>();
+        public List<Vec3> curList = new List<Vec3>();
 
         public CABCurve(FormGPS _f)
         {
@@ -67,7 +67,7 @@ namespace ABC
             if (!isCurveSet || cnt < 400) return;
 
             //the temp array
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
 
             //read the points before and after the setpoint
             for (int s = 0; s < smPts / 2; s++)
@@ -109,13 +109,13 @@ namespace ABC
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = refList.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             cnt--;
             refList.CopyTo(arr);
             refList.Clear();
 
             //first point needs last, first, second points
-            vec3 pt3 = arr[0];
+            Vec3 pt3 = arr[0];
 
             //middle points
             for (int i = 1; i < cnt; i++)
@@ -138,7 +138,7 @@ namespace ABC
             refList?.Clear();
 
             //copy to an array to calculate all the new headings
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             smooList.CopyTo(arr);
 
             //calculate new headings on smoothed line
@@ -150,7 +150,7 @@ namespace ABC
             }
         }
 
-        public void GetCurrentCurveLine(vec3 pivot, vec3 steer)
+        public void GetCurrentCurveLine(Vec3 pivot, Vec3 steer)
         {
             //determine closest point
             double minDistance = 9999999;
@@ -234,7 +234,7 @@ namespace ABC
             curList?.Clear();
             for (int i = 0; i < ptCount; i++)
             {
-                var point = new vec3(
+                var point = new Vec3(
                     refList[i].easting + (Math.Sin(piSide + aveLineHeading) * widthMinusOverlap * howManyPathsAway),
                     refList[i].northing + (Math.Cos(piSide + aveLineHeading) * widthMinusOverlap * howManyPathsAway),
                     refList[i].heading);
@@ -582,7 +582,7 @@ namespace ABC
             else headingAt90 = -glm.PIBy2;
 
             int cnt = refList.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             refList.CopyTo(arr);
             refList.Clear();
 
@@ -603,7 +603,7 @@ namespace ABC
             else headingAt90 = -glm.PIBy2;
 
             int cnt = refList.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             refList.CopyTo(arr);
             refList.Clear();
 
@@ -615,7 +615,7 @@ namespace ABC
             }
         }
 
-        public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)
+        public bool PointOnLine(Vec3 pt1, Vec3 pt2, Vec3 pt)
         {
             bool isValid = false;
 
@@ -648,17 +648,17 @@ namespace ABC
             int ptCnt = refList.Count - 1;
             for (int i = 1; i < 200; i++)
             {
-                vec3 pt = new vec3(refList[ptCnt]);
+                Vec3 pt = new Vec3(refList[ptCnt]);
                 pt.easting += (Math.Sin(pt.heading) * i);
                 pt.northing += (Math.Cos(pt.heading) * i);
                 refList.Add(pt);
             }
 
             //and the beginning
-            vec3 start = new vec3(refList[0]);
+            Vec3 start = new Vec3(refList[0]);
             for (int i = 1; i < 200; i++)
             {
-                vec3 pt = new vec3(start);
+                Vec3 pt = new Vec3(start);
                 pt.easting -= (Math.Sin(pt.heading) * i);
                 pt.northing -= (Math.Cos(pt.heading) * i);
                 refList.Insert(0, pt);

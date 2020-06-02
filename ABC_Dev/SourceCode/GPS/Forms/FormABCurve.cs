@@ -70,7 +70,7 @@ namespace ABC
                     double distance = glm.Distance(mf.curve.refList[i], mf.curve.refList[j]);
                     if (distance > 1.2)
                     {
-                        vec3 pointB = new vec3((mf.curve.refList[i].easting + mf.curve.refList[j].easting) / 2.0,
+                        Vec3 pointB = new Vec3((mf.curve.refList[i].easting + mf.curve.refList[j].easting) / 2.0,
                             (mf.curve.refList[i].northing + mf.curve.refList[j].northing) / 2.0,
                             mf.curve.refList[i].heading);
 
@@ -113,7 +113,7 @@ namespace ABC
             int cnt = mf.curve.refList.Count;
 
             //the temp array
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
 
             //read the points before and after the setpoint
             for (int s = 0; s < smPts / 2; s++)

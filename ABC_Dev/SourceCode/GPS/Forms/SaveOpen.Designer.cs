@@ -15,7 +15,7 @@ namespace ABC
         public List<List<vec2>> patchSaveList = new List<List<vec2>>();
 
         //list of the list of patch data individual triangles for contour tracking
-        public List<List<vec3>> contourSaveList = new List<List<vec3>>();
+        public List<List<Vec3>> contourSaveList = new List<List<Vec3>>();
 
         //function that save vehicle and section settings
         public void FileSaveVehicle()
@@ -782,9 +782,9 @@ namespace ABC
                             line = reader.ReadLine();
                             int verts = int.Parse(line);
 
-                            vec3 vecFix = new vec3(0, 0, 0);
+                            Vec3 vecFix = new Vec3(0, 0, 0);
 
-                            ct.ptList = new List<vec3>();
+                            ct.ptList = new List<Vec3>();
                             ct.stripList.Add(ct.ptList);
 
                             for (int v = 0; v < verts; v++)
@@ -930,7 +930,7 @@ namespace ABC
                             {
                                 line = reader.ReadLine();
                                 string[] words = line.Split(',');
-                                vec3 vecPt = new vec3(
+                                Vec3 vecPt = new Vec3(
                                 double.Parse(words[0], CultureInfo.InvariantCulture),
                                 double.Parse(words[1], CultureInfo.InvariantCulture),
                                 double.Parse(words[2], CultureInfo.InvariantCulture));

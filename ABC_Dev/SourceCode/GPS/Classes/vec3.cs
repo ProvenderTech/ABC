@@ -9,70 +9,25 @@ namespace ABC
     /// </summary>
     ///
 
-    public struct vec3
+    public struct Vec3
     {
         public double easting;
         public double northing;
         public double heading;
 
-        public vec3(double easting, double northing, double heading)
+        public Vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
         }
 
-        public vec3(vec3 v)
+        public Vec3(Vec3 v)
         {
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
         }
-
-        //public double HeadingXZ()
-        //{
-        //    return Math.Atan2(easting, northing);
-        //}
-
-        //public void Normalize()
-        //{
-        //    double length = GetLength();
-        //    if (Math.Abs(length) < 0.0000000000001)
-        //    {
-        //        throw new DivideByZeroException("Trying to normalize a vector with length of zero.");
-        //    }
-
-        //    easting /= length;
-        //    northing /= length;
-        //    heading /= length;
-        //}
-
-        ////Returns the length of the vector
-        //public double GetLength()
-        //{
-        //    return Math.Sqrt((easting * easting) + (heading * heading) + (northing * northing));
-        //}
-
-        //// Calculates the squared length of the vector.
-        //public double GetLengthSquared()
-        //{
-        //    return (easting * easting) + (heading * heading) + (northing * northing);
-        //}
-
-        //public static vec3 operator -(vec3 lhs, vec3 rhs)
-        //{
-        //    return new vec3(lhs.easting - rhs.easting, lhs.northing - rhs.northing, lhs.heading - rhs.heading);
-        //}
-
-        //public static bool operator ==(vec3 lhs, vec3 rhs)
-        //{
-        //    return (lhs.x == rhs.x && lhs.z == rhs.z && lhs.h == rhs.h);
-        //}
-
-        //public static bool operator !=(vec3 lhs, vec3 rhs)
-        //{
-        //    return (lhs.x != rhs.x && lhs.z != rhs.z && lhs.h != rhs.h);
-        //}
     }
 
     //
@@ -184,7 +139,7 @@ namespace ABC
             pt = p;
         }
 
-        public cvec(vec3 v)
+        public cvec(Vec3 v)
         {
             x = v.easting;
             z = v.northing;
@@ -222,7 +177,7 @@ namespace ABC
 //    this.z = v.z;
 //}
 
-//public vec2(vec3 v)
+//public vec2(Vec3 v)
 //{
 //    this.x = v.x;
 //    this.z = v.z;

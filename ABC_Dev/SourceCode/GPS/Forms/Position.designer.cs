@@ -23,10 +23,10 @@ namespace ABC
         //for heading or Atan2 as camera
         public string headingFromSource;
 
-        public vec3 pivotAxlePos = new vec3(0, 0, 0);
-        public vec3 steerAxlePos = new vec3(0, 0, 0);
-        public vec3 toolPos = new vec3(0, 0, 0);
-        public vec3 tankPos = new vec3(0, 0, 0);
+        public Vec3 pivotAxlePos = new Vec3(0, 0, 0);
+        public Vec3 steerAxlePos = new Vec3(0, 0, 0);
+        public Vec3 toolPos = new Vec3(0, 0, 0);
+        public Vec3 tankPos = new Vec3(0, 0, 0);
         public vec2 hitchPos = new vec2(0, 0);
 
         //history
@@ -76,8 +76,8 @@ namespace ABC
 
         //step position - slow speed spinner killer
         private int totalFixSteps = 10, currentStepFix = 0;
-        private vec3 vHold;
-        public vec3[] stepFixPts = new vec3[60];
+        private Vec3 vHold;
+        public Vec3[] stepFixPts = new Vec3[60];
         public double distanceCurrentStepFix = 0, fixStepDist, minFixStepDist = 0;        
         bool isFixHolding = false, isFixHoldLoaded = false;
         public double eastingBeforeRoll;
@@ -200,7 +200,7 @@ namespace ABC
 
             #region Step Fix
 
-            //**** heading of the vec3 structure is used for distance in Step fix!!!!!
+            //**** heading of the Vec3 structure is used for distance in Step fix!!!!!
 
             //grab the most current fix and save the distance from the last fix
             distanceCurrentStepFix = glm.Distance(pn.fix, stepFixPts[0]);
@@ -583,7 +583,7 @@ namespace ABC
         {            
             if (curve.isOkToAddPoints)
             {
-                vec3 pt = new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading);
+                Vec3 pt = new Vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading);
                 curve.refList.Add(pt);
             }
 

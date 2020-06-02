@@ -54,13 +54,13 @@ namespace ABC
         public double ppRadiusCT;
 
         //list of strip data individual points
-        public List<vec3> ptList = new List<vec3>();
+        public List<Vec3> ptList = new List<Vec3>();
 
         //list of the list of individual Lines for entire field
-        public List<List<vec3>> stripList = new List<List<vec3>>();
+        public List<List<Vec3>> stripList = new List<List<Vec3>>();
 
         //list of points for the new contour line
-        public List<vec3> ctList = new List<vec3>();
+        public List<Vec3> ctList = new List<Vec3>();
 
         //list of points to determine position ofnew contour line
         public List<cvec> conList = new List<cvec>();
@@ -72,7 +72,7 @@ namespace ABC
         }
 
         //start stop and add points to list
-        public void StartContourLine(vec3 pivot)
+        public void StartContourLine(Vec3 pivot)
         {
             isContourOn = true;
             if (ptList.Count == 1)
@@ -83,26 +83,26 @@ namespace ABC
             else
             {
                 //make new ptList
-                ptList = new List<vec3>();
+                ptList = new List<Vec3>();
                 stripList.Add(ptList);
             }
 
             //pivot.easting -= (Math.Sin(pivot.heading) * 5.0);
             //pivot.northing -= (Math.Cos(pivot.heading) * 5.0);
 
-            vec3 point = new vec3(pivot.easting, pivot.northing, pivot.heading);
+            Vec3 point = new Vec3(pivot.easting, pivot.northing, pivot.heading);
             ptList.Add(point);
         }
 
         //Add current position to stripList
-        public void AddPoint(vec3 pivot)
+        public void AddPoint(Vec3 pivot)
         {
-            vec3 point = new vec3(pivot.easting, pivot.northing, pivot.heading);
+            Vec3 point = new Vec3(pivot.easting, pivot.northing, pivot.heading);
             ptList.Add(point);
         }
 
         //End the strip
-        public void StopContourLine(vec3 pivot)
+        public void StopContourLine(Vec3 pivot)
         {
             //make sure its long enough to bother
             if (ptList.Count > 10)
@@ -110,7 +110,7 @@ namespace ABC
                 //pivot.easting += (Math.Sin(pivot.heading) * 5.0);
                 //pivot.northing += (Math.Cos(pivot.heading) * 5.0);
 
-                vec3 point = new vec3(pivot.easting, pivot.northing, mf.fixHeading);
+                Vec3 point = new Vec3(pivot.easting, pivot.northing, mf.fixHeading);
                 ptList.Add(point);
 
                 //add the point list to the save list for appending to contour file
@@ -130,7 +130,7 @@ namespace ABC
         }
 
         //determine closest point on left side
-        public void BuildContourGuidanceLine(vec3 pivot)
+        public void BuildContourGuidanceLine(Vec3 pivot)
         {
             double toolWid = mf.vehicle.toolWidth;
 
@@ -445,13 +445,13 @@ namespace ABC
 
             for (int i = start; i < stop; i++)
             {
-                var point = new vec3(
+                var point = new Vec3(
                     stripList[strip][i].easting + (Math.Sin(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                     stripList[strip][i].northing + (Math.Cos(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                     stripList[strip][i].heading);
                 ctList.Add(point);
 
-                //var point = new vec3(
+                //var point = new Vec3(
                 //    stripList[strip][i].easting + (Math.Sin(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                 //    stripList[strip][i].northing + (Math.Cos(piSide + stripList[strip][i].heading) * widthMinusOverlap),
                 //    stripList[strip][i].heading);
@@ -496,7 +496,7 @@ namespace ABC
             //    if (cnt < 10) return;
 
             //    //the temp array
-            //    vec3[] arr = new vec3[cnt];
+            //    Vec3[] arr = new Vec3[cnt];
 
             //    //how many samples
             //    const int smPts = 2;
@@ -542,7 +542,7 @@ namespace ABC
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = ctList.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             cnt--;
             ctList.CopyTo(arr);
             ctList.Clear();
@@ -550,7 +550,7 @@ namespace ABC
             //middle points
             for (int i = 1; i < cnt; i++)
             {
-                vec3 pt3 = arr[i];
+                Vec3 pt3 = arr[i];
                 pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing);
                 if (pt3.heading < 0) pt3.heading += glm.twoPI;
                 ctList.Add(pt3);
@@ -558,7 +558,7 @@ namespace ABC
         }
 
         //determine distance from contour guidance line
-        public void DistanceFromContourLine(vec3 pivot, vec3 steer)
+        public void DistanceFromContourLine(Vec3 pivot, Vec3 steer)
         {
             isValid = false;
             double minDistA = 1000000, minDistB = 1000000;

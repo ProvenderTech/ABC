@@ -133,14 +133,14 @@ namespace ABC
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec2 first, vec3 second)
+        public static double Distance(vec2 first, Vec3 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec3 first, vec3 second)
+        public static double Distance(Vec3 first, Vec3 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
@@ -154,7 +154,7 @@ namespace ABC
                 + Math.Pow(first.northing - north, 2));
         }
 
-        public static double Distance(vec3 first, double east, double north)
+        public static double Distance(Vec3 first, double east, double north)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - east, 2)
