@@ -7,10 +7,13 @@
         //flag for free drive window to control autosteer
         public bool isInFreeDriveMode;
 
-        //constructor
-        public CAutoSteer(FormGPS _f)
+        /// <summary>
+        /// When called will default the drive mode to AutoSteer
+        /// </summary>
+        /// <param name="f">FormGPS Class</param>
+        public CAutoSteer(FormGPS f)
         {
-            mf = _f;
+            mf = f;
             isInFreeDriveMode = false;
         }
     }

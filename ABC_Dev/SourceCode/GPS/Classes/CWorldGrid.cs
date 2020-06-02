@@ -21,7 +21,7 @@ namespace ABC
         /// <summary>
         /// Constructor for the grid on the application.
         /// </summary>
-        /// <param name="f">FormGPS struct</param>
+        /// <param name="f">FormGPS Class</param>
         public CWorldGrid(FormGPS f)
         {
             mf = f;
