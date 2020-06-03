@@ -33,27 +33,27 @@ namespace ABC
             camFollowing = true;
         }
 
-        public void SetWorldCam(double _fixPosX, double _fixPosY, double _fixHeading)
+        /// <summary>
+        /// This will set the position for the world camera
+        /// </summary>
+        /// <param name="fixPosX">The X position for the camera</param>
+        /// <param name="fixPosY">The Y position for the camera</param>
+        /// <param name="fixedHeading">The heading position for the camera</param>
+        public void SetWorldCam(double fixPosX, double fixPosY, double fixedHeading)
         {
-            camPosX = _fixPosX;
-            camPosY = _fixPosY;
-            fixHeading = _fixHeading;
-            camYaw = _fixHeading;
+            //initializing variables
+            const double fixedOffset = 0.02;
+            camPosX = fixPosX;
+            camPosY = fixPosY;
+            fixHeading = fixedHeading;
+            camYaw = fixedHeading;
+            var sinHeading = Math.Sin(glm.toRadians(fixHeading));
+            var cosHeading = Math.Cos(glm.toRadians(fixHeading));
 
             //back the camera up
             GL.Translate(0.0, 0.0, camSetDistance * 0.5);
             //rotate the camera down to look at fix
             GL.Rotate(camPitch, 1.0, 0.0, 0.0);
-
-            ////draw the guide
-            //gl.Begin(OpenGL.GL_TRIANGLES);
-            //gl.Color(0.98f, 0.0f, 0.0f);
-            //gl.Vertex(0.0f, -2.0f, 0.0f);
-            //gl.Color(0.0f, 0.98f, 0.0f);
-            //gl.Vertex(-2.0f, -3.0f, 0.0f);
-            //gl.Color(0.98f, 0.98f, 0.0f);
-            //gl.Vertex(2.0f, -3.0f, 0.0f);
-            //gl.End();						// Done Drawing Reticle
 
             //following game style or N fixed cam
             if (camFollowing)
@@ -66,13 +66,18 @@ namespace ABC
 
                     offset = (offset * offset * offset * offset * 0.015) + 0.02;
 
-                    GL.Translate(-camPosX + (offset * camSetDistance * Math.Sin(glm.toRadians(fixHeading))),
-                        -camPosY + (offset * camSetDistance * Math.Cos(glm.toRadians(fixHeading))), -camPosZ);
+                    GL.Translate(
+                        -camPosX + (offset * camSetDistance * sinHeading),
+                        -camPosY + (offset * camSetDistance * cosHeading),
+                        -camPosZ);
                 }
                 else
                 {
-                    GL.Translate(-camPosX + (0.02 * camSetDistance * Math.Sin(glm.toRadians(fixHeading))),
-                             -camPosY + (0.02 * camSetDistance * Math.Cos(glm.toRadians(fixHeading))), -camPosZ);
+                    //fixed offset of .02
+                    GL.Translate(
+                        -camPosX + (fixedOffset * camSetDistance * sinHeading),
+                        -camPosY + (fixedOffset * camSetDistance * cosHeading),
+                        -camPosZ);
                 }
             }
             else
