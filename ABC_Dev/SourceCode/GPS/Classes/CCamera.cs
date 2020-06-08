@@ -62,7 +62,7 @@ namespace ABC
             if (camFollowing)
             {
                 GL.Rotate(camYaw*2, 0.0, 0.0, 1.0);
-                // Camera mode that is 3D
+                // Camera mode that is 2D
                 if (camPitch > -45)
                 {
                     offset = (45.0 + camPitch) / 45.0;
