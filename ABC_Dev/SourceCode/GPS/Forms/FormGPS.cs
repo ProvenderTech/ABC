@@ -939,7 +939,7 @@ namespace ABC
 
             //change images to reflect on off
             btnABLine.Image = Properties.Resources.ABLineOff;
-            ABLine.isBtnABLineOn = false;
+            ABLine.isBtnLineOn = false;
 
             btnContour.Image = Properties.Resources.ContourOff;
             btnAutoSteer.Image = Properties.Resources.AutoSteerOff;

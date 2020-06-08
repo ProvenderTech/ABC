@@ -3,6 +3,7 @@ using System;
 
 namespace ABC
 {
+    // appears to be for the camera, but not sure
     public class CQuicks
     {
         public double X { get; set; }
@@ -11,21 +12,24 @@ namespace ABC
         public string fieldName { get; set; }
 
         //constructor
-        public CQuicks(string _fieldName = "North South", double _heading = 0, double _X = 0, double _Y = 0)
+        public CQuicks(string varFieldName = "North South", double varHeading = 0, double varX = 0, double varY = 0)
         {
-            fieldName = _fieldName;
-            X = _X;
-            Y = _Y;
-            heading = _heading;
+            fieldName = varFieldName;
+            heading = varHeading;
+            X = varX;
+            Y = varY;
         }
     }
 
+    /// <summary>
+    /// Class for making the AB line
+    /// </summary>
     public class CABLine
     {
         public double abHeading;
         public double abFixHeadingDelta;
 
-        public bool isABSameAsVehicleHeading = true;
+        public bool isLineSameAsVehicleHeading = true;
         public bool isOnRightSideCurrentLine = true;
 
         public double refLineSide = 1.0;
@@ -34,9 +38,9 @@ namespace ABC
         public double distanceFromCurrentLine;
         public double snapDistance;
 
-        public bool isABLineSet;
-        public bool isABLineBeingSet;
-        public bool isBtnABLineOn;
+        public bool isLineSet;
+        public bool isLineBeingSet;
+        public bool isBtnLineOn;
         public double passNumber;
 
         public double howManyPathsAway;
@@ -57,27 +61,27 @@ namespace ABC
         public vec2 refPoint2 = new vec2(0.3, 0.3);
 
         //the reference line endpoints
-        public vec2 refABLineP1 = new vec2(0.0, 0.0);
+        public vec2 refLineP1 = new vec2(0.0, 0.0);
 
-        public vec2 refABLineP2 = new vec2(0.0, 1.0);
+        public vec2 refLineP2 = new vec2(0.0, 1.0);
 
         //the current AB guidance line
-        public vec2 currentABLineP1 = new vec2(0.0, 0.0);
+        public vec2 currentLineP1 = new vec2(0.0, 0.0);
 
-        public vec2 currentABLineP2 = new vec2(0.0, 1.0);
+        public vec2 currentLineP2 = new vec2(0.0, 1.0);
 
         //pure pursuit values
-        public vec2 goalPointAB = new vec2(0, 0);
+        public vec2 goalPoint = new vec2(0, 0);
 
-        public vec2 radiusPointAB = new vec2(0, 0);
-        public double steerAngleAB;
-        public double rEastAB, rNorthAB;
-        public double ppRadiusAB;
+        public vec2 radiusPoint = new vec2(0, 0);
+        public double steerAngle;
+        public double rEast, rNorth;
+        public double ppRadius;
 
-        public CABLine(FormGPS _f)
+        public CABLine(FormGPS f)
         {
             //constructor
-            mf = _f;
+            mf = f;
             isOnTramLine = true;
         }
 
@@ -86,16 +90,16 @@ namespace ABC
             refPoint1 = new vec2(0.0, 0.0);
             refPoint2 = new vec2(0.0, 1.0);
 
-            refABLineP1 = new vec2(0.0, 0.0);
-            refABLineP2 = new vec2(0.0, 1.0);
+            refLineP1 = new vec2(0.0, 0.0);
+            refLineP2 = new vec2(0.0, 1.0);
 
-            currentABLineP1 = new vec2(0.0, 0.0);
-            currentABLineP2 = new vec2(0.0, 1.0);
+            currentLineP1 = new vec2(0.0, 0.0);
+            currentLineP2 = new vec2(0.0, 1.0);
 
             abHeading = 0.0;
             passNumber = 0.0;
             howManyPathsAway = 0.0;
-            isABLineSet = false;
+            isLineSet = false;
         }
 
         public void SetABLineByBPoint()
@@ -108,28 +112,28 @@ namespace ABC
             if (abHeading < 0) abHeading += glm.twoPI;
 
             //sin x cos z for endpoints, opposite for additional lines
-            refABLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
-            refABLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
+            refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
-            refABLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
-            refABLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
+            refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
-            isABLineSet = true;
+            isLineSet = true;
         }
 
         public void SetABLineByHeading()
         {
             //heading is set in the AB Form
-            refABLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
-            refABLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
+            refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
-            refABLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
-            refABLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
+            refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
-            refPoint2.easting = refABLineP2.easting;
-            refPoint2.northing = refABLineP2.northing;
+            refPoint2.easting = refLineP2.easting;
+            refPoint2.northing = refLineP2.northing;
 
-            isABLineSet = true;
+            isLineSet = true;
         }
 
         public void SnapABLine()
@@ -143,33 +147,33 @@ namespace ABC
             refPoint1.easting = (Math.Sin(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPoint1.easting;
             refPoint1.northing = (Math.Cos(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPoint1.northing;
 
-            refABLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
-            refABLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
+            refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
-            refABLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
-            refABLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
+            refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
-            refPoint2.easting = refABLineP2.easting;
-            refPoint2.northing = refABLineP2.northing;
+            refPoint2.easting = refLineP2.easting;
+            refPoint2.northing = refLineP2.northing;
         }
 
         public void MoveABLine(double dist)
         {
             //calculate the heading 90 degrees to ref ABLine heading
-            double headingCalc = isABSameAsVehicleHeading ? abHeading + glm.PIBy2 : abHeading - glm.PIBy2;
+            double headingCalc = isLineSameAsVehicleHeading ? abHeading + glm.PIBy2 : abHeading - glm.PIBy2;
 
             //calculate the new points for the reference line and points
             refPoint1.easting = (Math.Sin(headingCalc) * dist) + refPoint1.easting;
             refPoint1.northing = (Math.Cos(headingCalc) * dist) + refPoint1.northing;
 
-            refABLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
-            refABLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
+            refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
-            refABLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
-            refABLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
+            refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
-            refPoint2.easting = refABLineP2.easting;
-            refPoint2.northing = refABLineP2.northing;
+            refPoint2.easting = refLineP2.easting;
+            refPoint2.northing = refLineP2.northing;
         }
 
         public double angVel;
@@ -182,13 +186,13 @@ namespace ABC
                 double widthMinusOverlap = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
 
                 //x2-x1
-                double dx = refABLineP2.easting - refABLineP1.easting;
+                double dx = refLineP2.easting - refLineP1.easting;
                 //z2-z1
-                double dy = refABLineP2.northing - refABLineP1.northing;
+                double dy = refLineP2.northing - refLineP1.northing;
 
                 //how far are we away from the reference line at 90 degrees
-                distanceFromRefLine = ((dy * pivot.easting) - (dx * pivot.northing) + (refABLineP2.easting
-                                        * refABLineP1.northing) - (refABLineP2.northing * refABLineP1.easting))
+                distanceFromRefLine = ((dy * pivot.easting) - (dx * pivot.northing) + (refLineP2.easting
+                                        * refLineP1.northing) - (refLineP2.northing * refLineP1.easting))
                                             / Math.Sqrt((dy * dy) + (dx * dx));
 
                 //sign of distance determines which side of line we are on
@@ -209,7 +213,7 @@ namespace ABC
                 vec2 point1;
 
                 //depending which way you are going, the offset can be either side
-                if (isABSameAsVehicleHeading)
+                if (isLineSameAsVehicleHeading)
                 {
                     point1 = new vec2((Math.Cos(-abHeading) * ((widthMinusOverlap * howManyPathsAway * refLineSide) - toolOffset)) + refPoint1.easting,
                     (Math.Sin(-abHeading) * ((widthMinusOverlap * howManyPathsAway * refLineSide) - toolOffset)) + refPoint1.northing);
@@ -221,21 +225,21 @@ namespace ABC
                 }
 
                 //create the new line extent points for current ABLine based on original heading of AB line
-                currentABLineP1.easting = point1.easting - (Math.Sin(abHeading) * 40000.0);
-                currentABLineP1.northing = point1.northing - (Math.Cos(abHeading) * 40000.0);
+                currentLineP1.easting = point1.easting - (Math.Sin(abHeading) * 40000.0);
+                currentLineP1.northing = point1.northing - (Math.Cos(abHeading) * 40000.0);
 
-                currentABLineP2.easting = point1.easting + (Math.Sin(abHeading) * 40000.0);
-                currentABLineP2.northing = point1.northing + (Math.Cos(abHeading) * 40000.0);
+                currentLineP2.easting = point1.easting + (Math.Sin(abHeading) * 40000.0);
+                currentLineP2.northing = point1.northing + (Math.Cos(abHeading) * 40000.0);
 
                 //get the distance from currently active AB line
                 //x2-x1
-                dx = currentABLineP2.easting - currentABLineP1.easting;
+                dx = currentLineP2.easting - currentLineP1.easting;
                 //z2-z1
-                dy = currentABLineP2.northing - currentABLineP1.northing;
+                dy = currentLineP2.northing - currentLineP1.northing;
 
                 //how far from current AB Line is fix
-                distanceFromCurrentLine = ((dy * steer.easting) - (dx * steer.northing) + (currentABLineP2.easting
-                            * currentABLineP1.northing) - (currentABLineP2.northing * currentABLineP1.easting))
+                distanceFromCurrentLine = ((dy * steer.easting) - (dx * steer.northing) + (currentLineP2.easting
+                            * currentLineP1.northing) - (currentLineP2.northing * currentLineP1.easting))
                             / Math.Sqrt((dy * dy) + (dx * dx));
 
                 //are we on the right side or not
@@ -248,19 +252,19 @@ namespace ABC
                 abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
 
-                isABSameAsVehicleHeading = abFixHeadingDelta < glm.PIBy2;
+                isLineSameAsVehicleHeading = abFixHeadingDelta < glm.PIBy2;
 
                 // **Stanley Point ** - calc point on ABLine closest to current steer position
-                double U = (((steer.easting - currentABLineP1.easting) * dx)
-                            + ((steer.northing - currentABLineP1.northing) * dy))
+                double U = (((steer.easting - currentLineP1.easting) * dx)
+                            + ((steer.northing - currentLineP1.northing) * dy))
                             / ((dx * dx) + (dy * dy));
 
                 //point on AB line closest to pivot axle point
-                rEastAB = currentABLineP1.easting + (U * dx);
-                rNorthAB = currentABLineP1.northing + (U * dy);
+                rEast = currentLineP1.easting + (U * dx);
+                rNorth = currentLineP1.northing + (U * dy);
 
                 //distance is negative if on left, positive if on right
-                if (isABSameAsVehicleHeading)
+                if (isLineSameAsVehicleHeading)
                 {
                     if (!isOnRightSideCurrentLine)
                     {
@@ -290,15 +294,15 @@ namespace ABC
                 if (abFixHeadingDelta > 0.4) abFixHeadingDelta = 0.4;
                 if (abFixHeadingDelta < -0.4) abFixHeadingDelta = -0.4;
 
-                steerAngleAB = Math.Atan((distanceFromCurrentLine * mf.vehicle.stanleyGain) / ((mf.pn.speed * 0.277777) + 1));
+                steerAngle = Math.Atan((distanceFromCurrentLine * mf.vehicle.stanleyGain) / ((mf.pn.speed * 0.277777) + 1));
 
-                if (steerAngleAB > 0.4) steerAngleAB = 0.4;
-                if (steerAngleAB < -0.4) steerAngleAB = -0.4;
+                if (steerAngle > 0.4) steerAngle = 0.4;
+                if (steerAngle < -0.4) steerAngle = -0.4;
 
-                steerAngleAB = glm.toDegrees((steerAngleAB + abFixHeadingDelta) * -1.0);
+                steerAngle = glm.toDegrees((steerAngle + abFixHeadingDelta) * -1.0);
 
-                if (steerAngleAB < -mf.vehicle.maxSteerAngle) steerAngleAB = -mf.vehicle.maxSteerAngle;
-                if (steerAngleAB > mf.vehicle.maxSteerAngle) steerAngleAB = mf.vehicle.maxSteerAngle;
+                if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
+                if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
 
                 //Convert to millimeters
                 distanceFromCurrentLine = Math.Round(distanceFromCurrentLine * 1000.0, MidpointRounding.AwayFromZero);
@@ -309,13 +313,13 @@ namespace ABC
                 double widthMinusOverlap = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
 
                 //x2-x1
-                double dx = refABLineP2.easting - refABLineP1.easting;
+                double dx = refLineP2.easting - refLineP1.easting;
                 //z2-z1
-                double dy = refABLineP2.northing - refABLineP1.northing;
+                double dy = refLineP2.northing - refLineP1.northing;
 
                 //how far are we away from the reference line at 90 degrees
-                distanceFromRefLine = ((dy * pivot.easting) - (dx * pivot.northing) + (refABLineP2.easting
-                                        * refABLineP1.northing) - (refABLineP2.northing * refABLineP1.easting))
+                distanceFromRefLine = ((dy * pivot.easting) - (dx * pivot.northing) + (refLineP2.easting
+                                        * refLineP1.northing) - (refLineP2.northing * refLineP1.easting))
                                             / Math.Sqrt((dy * dy) + (dx * dx));
 
                 //sign of distance determines which side of line we are on
@@ -336,7 +340,7 @@ namespace ABC
                 vec2 point1;
 
                 //depending which way you are going, the offset can be either side
-                if (isABSameAsVehicleHeading)
+                if (isLineSameAsVehicleHeading)
                 {
                     point1 = new vec2((Math.Cos(-abHeading) * ((widthMinusOverlap * howManyPathsAway * refLineSide) - toolOffset)) + refPoint1.easting,
                     (Math.Sin(-abHeading) * ((widthMinusOverlap * howManyPathsAway * refLineSide) - toolOffset)) + refPoint1.northing);
@@ -348,21 +352,21 @@ namespace ABC
                 }
 
                 //create the new line extent points for current ABLine based on original heading of AB line
-                currentABLineP1.easting = point1.easting - (Math.Sin(abHeading) * 40000.0);
-                currentABLineP1.northing = point1.northing - (Math.Cos(abHeading) * 40000.0);
+                currentLineP1.easting = point1.easting - (Math.Sin(abHeading) * 40000.0);
+                currentLineP1.northing = point1.northing - (Math.Cos(abHeading) * 40000.0);
 
-                currentABLineP2.easting = point1.easting + (Math.Sin(abHeading) * 40000.0);
-                currentABLineP2.northing = point1.northing + (Math.Cos(abHeading) * 40000.0);
+                currentLineP2.easting = point1.easting + (Math.Sin(abHeading) * 40000.0);
+                currentLineP2.northing = point1.northing + (Math.Cos(abHeading) * 40000.0);
 
                 //get the distance from currently active AB line
                 //x2-x1
-                dx = currentABLineP2.easting - currentABLineP1.easting;
+                dx = currentLineP2.easting - currentLineP1.easting;
                 //z2-z1
-                dy = currentABLineP2.northing - currentABLineP1.northing;
+                dy = currentLineP2.northing - currentLineP1.northing;
 
                 //how far from current AB Line is fix
-                distanceFromCurrentLine = ((dy * pivot.easting) - (dx * pivot.northing) + (currentABLineP2.easting
-                            * currentABLineP1.northing) - (currentABLineP2.northing * currentABLineP1.easting))
+                distanceFromCurrentLine = ((dy * pivot.easting) - (dx * pivot.northing) + (currentLineP2.easting
+                            * currentLineP1.northing) - (currentLineP2.northing * currentLineP1.easting))
                             / Math.Sqrt((dy * dy) + (dx * dx));
 
                 //are we on the right side or not
@@ -380,65 +384,65 @@ namespace ABC
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
 
                 // ** Pure pursuit ** - calc point on ABLine closest to current position
-                double U = (((pivot.easting - currentABLineP1.easting) * dx)
-                            + ((pivot.northing - currentABLineP1.northing) * dy))
+                double U = (((pivot.easting - currentLineP1.easting) * dx)
+                            + ((pivot.northing - currentLineP1.northing) * dy))
                             / ((dx * dx) + (dy * dy));
 
                 //point on AB line closest to pivot axle point
-                rEastAB = currentABLineP1.easting + (U * dx);
-                rNorthAB = currentABLineP1.northing + (U * dy);
+                rEast = currentLineP1.easting + (U * dx);
+                rNorth = currentLineP1.northing + (U * dy);
 
                 if (abFixHeadingDelta >= glm.PIBy2)
                 {
-                    isABSameAsVehicleHeading = false;
-                    goalPointAB.easting = rEastAB - (Math.Sin(abHeading) * goalPointDistance);
-                    goalPointAB.northing = rNorthAB - (Math.Cos(abHeading) * goalPointDistance);
+                    isLineSameAsVehicleHeading = false;
+                    goalPoint.easting = rEast - (Math.Sin(abHeading) * goalPointDistance);
+                    goalPoint.northing = rNorth - (Math.Cos(abHeading) * goalPointDistance);
                 }
                 else
                 {
-                    isABSameAsVehicleHeading = true;
-                    goalPointAB.easting = rEastAB + (Math.Sin(abHeading) * goalPointDistance);
-                    goalPointAB.northing = rNorthAB + (Math.Cos(abHeading) * goalPointDistance);
+                    isLineSameAsVehicleHeading = true;
+                    goalPoint.easting = rEast + (Math.Sin(abHeading) * goalPointDistance);
+                    goalPoint.northing = rNorth + (Math.Cos(abHeading) * goalPointDistance);
                 }
 
                 //calc "D" the distance from pivot axle to lookahead point
                 double goalPointDistanceDSquared
-                    = glm.DistanceSquared(goalPointAB.northing, goalPointAB.easting, pivot.northing, pivot.easting);
+                    = glm.DistanceSquared(goalPoint.northing, goalPoint.easting, pivot.northing, pivot.easting);
 
                 //calculate the the new x in local coordinates and steering angle degrees based on wheelbase
                 double localHeading = glm.twoPI - mf.fixHeading;
-                ppRadiusAB = goalPointDistanceDSquared / (2 * (((goalPointAB.easting - pivot.easting) * Math.Cos(localHeading))
-                    + ((goalPointAB.northing - pivot.northing) * Math.Sin(localHeading))));
+                ppRadius = goalPointDistanceDSquared / (2 * (((goalPoint.easting - pivot.easting) * Math.Cos(localHeading))
+                    + ((goalPoint.northing - pivot.northing) * Math.Sin(localHeading))));
 
-                steerAngleAB = glm.toDegrees(Math.Atan(2 * (((goalPointAB.easting - pivot.easting) * Math.Cos(localHeading))
-                    + ((goalPointAB.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase
+                steerAngle = glm.toDegrees(Math.Atan(2 * (((goalPoint.easting - pivot.easting) * Math.Cos(localHeading))
+                    + ((goalPoint.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase
                     / goalPointDistanceDSquared));
-                if (steerAngleAB < -mf.vehicle.maxSteerAngle) steerAngleAB = -mf.vehicle.maxSteerAngle;
-                if (steerAngleAB > mf.vehicle.maxSteerAngle) steerAngleAB = mf.vehicle.maxSteerAngle;
+                if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
+                if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
 
                 //limit circle size for display purpose
-                if (ppRadiusAB < -500) ppRadiusAB = -500;
-                if (ppRadiusAB > 500) ppRadiusAB = 500;
+                if (ppRadius < -500) ppRadius = -500;
+                if (ppRadius > 500) ppRadius = 500;
 
-                radiusPointAB.easting = pivot.easting + (ppRadiusAB * Math.Cos(localHeading));
-                radiusPointAB.northing = pivot.northing + (ppRadiusAB * Math.Sin(localHeading));
+                radiusPoint.easting = pivot.easting + (ppRadius * Math.Cos(localHeading));
+                radiusPoint.northing = pivot.northing + (ppRadius * Math.Sin(localHeading));
 
                 //Convert to millimeters
                 distanceFromCurrentLine = Math.Round(distanceFromCurrentLine * 1000.0, MidpointRounding.AwayFromZero);
 
                 //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
-                angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngleAB))) / mf.vehicle.wheelbase;
+                angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngle))) / mf.vehicle.wheelbase;
 
                 //clamp the steering angle to not exceed safe angular velocity
                 if (Math.Abs(angVel) > mf.vehicle.maxAngularVelocity)
                 {
-                    steerAngleAB = glm.toDegrees(steerAngleAB > 0 ? (Math.Atan((mf.vehicle.wheelbase * mf.vehicle.maxAngularVelocity)
+                    steerAngle = glm.toDegrees(steerAngle > 0 ? (Math.Atan((mf.vehicle.wheelbase * mf.vehicle.maxAngularVelocity)
                         / (glm.twoPI * mf.pn.speed * 0.277777)))
                         : (Math.Atan((mf.vehicle.wheelbase * -mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.pn.speed * 0.277777))));
                 }
 
                 //distance is negative if on left, positive if on right
-                if (isABSameAsVehicleHeading)
+                if (isLineSameAsVehicleHeading)
                 {
                     if (!isOnRightSideCurrentLine) distanceFromCurrentLine *= -1.0;
                 }
@@ -451,7 +455,7 @@ namespace ABC
             }
 
             mf.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
-            mf.guidanceLineSteerAngle = (Int16)(steerAngleAB * 100);
+            mf.guidanceLineSteerAngle = (Int16)(steerAngle * 100);
         }
 
         public void DrawABLines()
@@ -467,7 +471,7 @@ namespace ABC
             GL.End();
             GL.PointSize(1.0f);
 
-            if (isABLineSet)
+            if (isLineSet)
             {
                 //Draw reference AB line
                 GL.LineWidth(2);
@@ -475,8 +479,8 @@ namespace ABC
                 GL.LineStipple(1, 0x07F0);
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.49f, 0.25f, 0.37f);
-                GL.Vertex3(refABLineP1.easting, refABLineP1.northing, 0);
-                GL.Vertex3(refABLineP2.easting, refABLineP2.northing, 0);
+                GL.Vertex3(refLineP1.easting, refLineP1.northing, 0);
+                GL.Vertex3(refLineP2.easting, refLineP2.northing, 0);
 
                 GL.End();
                 GL.Disable(EnableCap.LineStipple);
@@ -509,8 +513,8 @@ namespace ABC
                 //based on line pass, make ref purple
                 if (Math.Abs(passBasedOn - (int)passNumber) <= 0 && tramPassEvery != 0) GL.Color3(0.990f, 0.190f, 0.990f);
 
-                GL.Vertex3(currentABLineP1.easting, currentABLineP1.northing, 0.0);
-                GL.Vertex3(currentABLineP2.easting, currentABLineP2.northing, 0.0);
+                GL.Vertex3(currentLineP1.easting, currentLineP1.northing, 0.0);
+                GL.Vertex3(currentLineP2.easting, currentLineP2.northing, 0.0);
                 GL.End();
 
                 if (mf.isSideGuideLines)
@@ -527,31 +531,31 @@ namespace ABC
                     double cosHeading = Math.Cos(-abHeading);
                     double sinHeading = Math.Sin(-abHeading);
 
-                    if (isABSameAsVehicleHeading)
+                    if (isLineSameAsVehicleHeading)
                     {
-                        GL.Vertex3((cosHeading * (toolWidth + toolOffset)) + currentABLineP1.easting, (sinHeading * (toolWidth + toolOffset)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (toolWidth + toolOffset)) + currentABLineP2.easting, (sinHeading * (toolWidth + toolOffset)) + currentABLineP2.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth + toolOffset)) + currentABLineP1.easting, (sinHeading * (-toolWidth + toolOffset)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth + toolOffset)) + currentABLineP2.easting, (sinHeading * (-toolWidth + toolOffset)) + currentABLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (toolWidth + toolOffset)) + currentLineP1.easting, (sinHeading * (toolWidth + toolOffset)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (toolWidth + toolOffset)) + currentLineP2.easting, (sinHeading * (toolWidth + toolOffset)) + currentLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth + toolOffset)) + currentLineP1.easting, (sinHeading * (-toolWidth + toolOffset)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth + toolOffset)) + currentLineP2.easting, (sinHeading * (-toolWidth + toolOffset)) + currentLineP2.northing, 0);
 
                         toolWidth *= 2;
-                        GL.Vertex3((cosHeading * toolWidth) + currentABLineP1.easting, (sinHeading * toolWidth) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * toolWidth) + currentABLineP2.easting, (sinHeading * toolWidth) + currentABLineP2.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth)) + currentABLineP1.easting, (sinHeading * (-toolWidth)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth)) + currentABLineP2.easting, (sinHeading * (-toolWidth)) + currentABLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * toolWidth) + currentLineP1.easting, (sinHeading * toolWidth) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * toolWidth) + currentLineP2.easting, (sinHeading * toolWidth) + currentLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth)) + currentLineP1.easting, (sinHeading * (-toolWidth)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth)) + currentLineP2.easting, (sinHeading * (-toolWidth)) + currentLineP2.northing, 0);
                     }
                     else
                     {
-                        GL.Vertex3((cosHeading * (toolWidth - toolOffset)) + currentABLineP1.easting, (sinHeading * (toolWidth - toolOffset)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (toolWidth - toolOffset)) + currentABLineP2.easting, (sinHeading * (toolWidth - toolOffset)) + currentABLineP2.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth - toolOffset)) + currentABLineP1.easting, (sinHeading * (-toolWidth - toolOffset)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth - toolOffset)) + currentABLineP2.easting, (sinHeading * (-toolWidth - toolOffset)) + currentABLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (toolWidth - toolOffset)) + currentLineP1.easting, (sinHeading * (toolWidth - toolOffset)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (toolWidth - toolOffset)) + currentLineP2.easting, (sinHeading * (toolWidth - toolOffset)) + currentLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth - toolOffset)) + currentLineP1.easting, (sinHeading * (-toolWidth - toolOffset)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth - toolOffset)) + currentLineP2.easting, (sinHeading * (-toolWidth - toolOffset)) + currentLineP2.northing, 0);
 
                         toolWidth *= 2;
-                        GL.Vertex3((cosHeading * toolWidth) + currentABLineP1.easting, (sinHeading * toolWidth) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * toolWidth) + currentABLineP2.easting, (sinHeading * toolWidth) + currentABLineP2.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth)) + currentABLineP1.easting, (sinHeading * (-toolWidth)) + currentABLineP1.northing, 0);
-                        GL.Vertex3((cosHeading * (-toolWidth)) + currentABLineP2.easting, (sinHeading * (-toolWidth)) + currentABLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * toolWidth) + currentLineP1.easting, (sinHeading * toolWidth) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * toolWidth) + currentLineP2.easting, (sinHeading * toolWidth) + currentLineP2.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth)) + currentLineP1.easting, (sinHeading * (-toolWidth)) + currentLineP1.northing, 0);
+                        GL.Vertex3((cosHeading * (-toolWidth)) + currentLineP2.easting, (sinHeading * (-toolWidth)) + currentLineP2.northing, 0);
                     }
                     GL.End();
                 }
@@ -561,21 +565,21 @@ namespace ABC
                     //draw the guidance circle
                     const int numSegments = 100;
                     {
-                        if (ppRadiusAB < 50 && ppRadiusAB > -50 && mf.isPureDisplayOn)
+                        if (ppRadius < 50 && ppRadius > -50 && mf.isPureDisplayOn)
                         {
                             GL.Color3(0.95f, 0.30f, 0.950f);
                             double theta = glm.twoPI / numSegments;
                             double c = Math.Cos(theta);//precalculate the sine and cosine
                             double s = Math.Sin(theta);
 
-                            double x = ppRadiusAB;//we start at angle = 0
+                            double x = ppRadius;//we start at angle = 0
                             double y = 0;
                             GL.LineWidth(1);
                             GL.Begin(PrimitiveType.LineLoop);
                             for (int ii = 0; ii < numSegments; ii++)
                             {
                                 //output vertex
-                                GL.Vertex3(x + radiusPointAB.easting, y + radiusPointAB.northing, 0.0);
+                                GL.Vertex3(x + radiusPoint.easting, y + radiusPoint.northing, 0.0);
 
                                 //apply the rotation matrix
                                 double t = x;
@@ -590,8 +594,8 @@ namespace ABC
                     GL.PointSize(8.0f);
                     GL.Begin(PrimitiveType.Points);
                     GL.Color3(1.0f, 1.0f, 0.0f);
-                    GL.Vertex3(goalPointAB.easting, goalPointAB.northing, 0.0);
-                    //GL.Vertex3(rEastAB, rNorthAB, 0.0);
+                    GL.Vertex3(goalPoint.easting, goalPoint.northing, 0.0);
+                    //GL.Vertex3(rEast, rNorth, 0.0);
                     GL.End();
                     GL.PointSize(1.0f);
                 }
@@ -606,15 +610,15 @@ namespace ABC
             refPoint1 = new vec2(0.2, 0.2);
             refPoint2 = new vec2(0.3, 0.3);
 
-            refABLineP1 = new vec2(0.0, 0.0);
-            refABLineP2 = new vec2(0.0, 1.0);
+            refLineP1 = new vec2(0.0, 0.0);
+            refLineP2 = new vec2(0.0, 1.0);
 
-            currentABLineP1 = new vec2(0.0, 0.0);
-            currentABLineP2 = new vec2(0.0, 0.2);
+            currentLineP1 = new vec2(0.0, 0.0);
+            currentLineP2 = new vec2(0.0, 0.2);
 
             abHeading = 0.0;
-            isABLineSet = false;
-            isABLineBeingSet = false;
+            isLineSet = false;
+            isLineBeingSet = false;
             howManyPathsAway = 0.0;
             passNumber = 0;
         }

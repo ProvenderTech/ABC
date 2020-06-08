@@ -779,7 +779,7 @@ namespace ABC
             }
             else
             {
-                if (ABLine.isABLineSet | ct.isContourBtnOn | curve.isCurveSet)
+                if (ABLine.isLineSet | ct.isContourBtnOn | curve.isCurveSet)
                 {
                     isAutoSteerBtnOn = true;
                     btnAutoSteer.Image = Properties.Resources.AutoSteerOn;
@@ -799,7 +799,7 @@ namespace ABC
             //new direction so reset where to put turn diagnostic
             btnContourPriority.Enabled = true;
             
-            if (ABLine.isABLineSet)
+            if (ABLine.isLineSet)
             {
                 ABLine.abHeading = glm.toRadians(AB0.heading);
                 ABLine.refPoint1.easting = AB0.X;
@@ -809,7 +809,7 @@ namespace ABC
 
             using (var form = new FormABLine(this))
             {
-                ABLine.isABLineBeingSet = true;
+                ABLine.isLineBeingSet = true;
                 txtDistanceOffABLine.Visible = true;
 
                 var result = form.ShowDialog();
@@ -817,16 +817,16 @@ namespace ABC
                 //Comes back
 
                 //if ABLine isn't set, turn off the YouTurn
-                if (!ABLine.isABLineSet)
+                if (!ABLine.isLineSet)
                 {
-                    ABLine.isABLineBeingSet = false;
+                    ABLine.isLineBeingSet = false;
                     txtDistanceOffABLine.Visible = false;
 
                     //change image to reflect on off
                     btnABLine.Image = Properties.Resources.ABLineOff;
-                    ABLine.isBtnABLineOn = false;
+                    ABLine.isBtnLineOn = false;
 
-                    ABLine.isABLineBeingSet = false;
+                    ABLine.isLineBeingSet = false;
 
                     if (isAutoSteerBtnOn) btnAutoSteer.PerformClick();
                     btnCurve.Enabled = true;
@@ -838,9 +838,9 @@ namespace ABC
                 {
                     //change image to reflect on off
                     btnABLine.Image = Properties.Resources.ABLineOn;
-                    ABLine.isBtnABLineOn = true;
+                    ABLine.isBtnLineOn = true;
 
-                    ABLine.isABLineBeingSet = false;
+                    ABLine.isLineBeingSet = false;
                     btnCurve.Enabled = false;
                 }
             }
@@ -871,14 +871,14 @@ namespace ABC
 
                 //save the no ABLine;
                 FileSaveABLine();
-                ABLine.isABLineBeingSet = false;
+                ABLine.isLineBeingSet = false;
                 txtDistanceOffABLine.Visible = false;
 
                 //change image to reflect on off
                 btnABLine.Image = Properties.Resources.ABLineOff;
-                ABLine.isBtnABLineOn = false;
+                ABLine.isBtnLineOn = false;
 
-                ABLine.isABLineBeingSet = false;
+                ABLine.isLineBeingSet = false;
                 //btnContour.Enabled = false;
                 btnABLine.Enabled = false;
 
@@ -940,7 +940,7 @@ namespace ABC
             }
             else
             {
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     ABLine.SnapABLine();
 
@@ -971,7 +971,7 @@ namespace ABC
         {
             if (!ct.isContourBtnOn)
             {
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     //snap distance is in cm
                     double dist = 0.01 * Properties.Settings.Default.setDisplay_snapDistanceSmall;
@@ -997,7 +997,7 @@ namespace ABC
         {
             if (!ct.isContourBtnOn)
             {
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     //snap distance is in cm
                     double dist = 0.01 * Properties.Settings.Default.setDisplay_snapDistanceSmall;
@@ -1021,7 +1021,7 @@ namespace ABC
         {
             if (!ct.isContourBtnOn)
             {
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     //snap distance is in cm
                     double dist = 0.01 * Properties.Settings.Default.setDisplay_snapDistance;
@@ -1047,7 +1047,7 @@ namespace ABC
         {
             if (!ct.isContourBtnOn)
             {
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     //snap distance is in cm
                     double dist = 0.01 * Properties.Settings.Default.setDisplay_snapDistance;
@@ -1828,7 +1828,7 @@ namespace ABC
 
         private void toolStripBtnSnap_Click(object sender, EventArgs e)
         {
-            if (ABLine.isABLineSet) ABLine.SnapABLine();
+            if (ABLine.isLineSet) ABLine.SnapABLine();
             else if (curve.isCurveSet) curve.SnapABCurve();
             else
             {

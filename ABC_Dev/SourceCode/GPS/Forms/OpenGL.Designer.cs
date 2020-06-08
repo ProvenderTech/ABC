@@ -154,7 +154,7 @@ namespace ABC
                 }
                 else// draw the current and reference AB Lines or CurveAB Ref and line
                 {
-                    if (ABLine.isABLineSet | ABLine.isABLineBeingSet) ABLine.DrawABLines();
+                    if (ABLine.isLineSet | ABLine.isLineBeingSet) ABLine.DrawABLines();
                     if (curve.isCurveBtnOn) curve.DrawCurve();
                 }
 
@@ -342,7 +342,7 @@ namespace ABC
                         }
                     }
 
-                    else if (ABLine.isABLineSet | ABLine.isABLineBeingSet)
+                    else if (ABLine.isLineSet | ABLine.isLineBeingSet)
                     {
                         string dist;
                         txtDistanceOffABLine.Visible = true;
@@ -828,7 +828,7 @@ namespace ABC
             } //end of section patches
 
             //draw the ABLine
-            if (ABLine.isABLineSet | ABLine.isABLineBeingSet)
+            if (ABLine.isLineSet | ABLine.isLineBeingSet)
             {
                 //Draw reference AB line
                 GL.LineWidth(1);
@@ -837,16 +837,16 @@ namespace ABC
 
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.9f, 0.5f, 0.7f);
-                GL.Vertex3(ABLine.refABLineP1.easting, ABLine.refABLineP1.northing, 0);
-                GL.Vertex3(ABLine.refABLineP2.easting, ABLine.refABLineP2.northing, 0);
+                GL.Vertex3(ABLine.refLineP1.easting, ABLine.refLineP1.northing, 0);
+                GL.Vertex3(ABLine.refLineP2.easting, ABLine.refLineP2.northing, 0);
                 GL.End();
                 GL.Disable(EnableCap.LineStipple);
 
                 //raw current AB Line
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.9f, 0.0f, 0.0f);
-                GL.Vertex3(ABLine.currentABLineP1.easting, ABLine.currentABLineP1.northing, 0.0);
-                GL.Vertex3(ABLine.currentABLineP2.easting, ABLine.currentABLineP2.northing, 0.0);
+                GL.Vertex3(ABLine.currentLineP1.easting, ABLine.currentLineP1.northing, 0.0);
+                GL.Vertex3(ABLine.currentLineP2.easting, ABLine.currentLineP2.northing, 0.0);
                 GL.End();
             }
 

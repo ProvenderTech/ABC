@@ -29,7 +29,7 @@ namespace ABC
         private void FormABLine_Load(object sender, EventArgs e)
         {
             //different start based on AB line already set or not
-            if (mf.ABLine.isABLineSet)
+            if (mf.ABLine.isLineSet)
             {
                 //AB line is on screen and set
                 btnAPoint.Enabled = false;

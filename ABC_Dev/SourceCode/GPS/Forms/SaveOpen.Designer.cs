@@ -835,7 +835,7 @@ namespace ABC
                         {
                             //set gui image button on
                             btnABLine.Image = global::ABC.Properties.Resources.ABLineOn;
-                            ABLine.isBtnABLineOn = true;
+                            ABLine.isBtnLineOn = true;
 
                             //Heading  , ,refPoint2x,z                    
                             line = reader.ReadLine();
@@ -865,13 +865,13 @@ namespace ABC
                             ABLine.tramPassEvery = int.Parse(words[0]);
                             ABLine.passBasedOn = int.Parse(words[1]);
 
-                            ABLine.refABLineP1.easting = ABLine.refPoint1.easting - Math.Sin(ABLine.abHeading) * 10000.0;
-                            ABLine.refABLineP1.northing = ABLine.refPoint1.northing - Math.Cos(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineP1.easting = ABLine.refPoint1.easting - Math.Sin(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineP1.northing = ABLine.refPoint1.northing - Math.Cos(ABLine.abHeading) * 10000.0;
 
-                            ABLine.refABLineP2.easting = ABLine.refPoint1.easting + Math.Sin(ABLine.abHeading) * 10000.0;
-                            ABLine.refABLineP2.northing = ABLine.refPoint1.northing + Math.Cos(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineP2.easting = ABLine.refPoint1.easting + Math.Sin(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineP2.northing = ABLine.refPoint1.northing + Math.Cos(ABLine.abHeading) * 10000.0;
 
-                            ABLine.isABLineSet = true;
+                            ABLine.isLineSet = true;
                             btnCurve.Enabled = false;
                             btnContourPriority.Enabled = true;
                         }
@@ -879,7 +879,7 @@ namespace ABC
                         //if ABLine isn't set, turn off the YouTurn
                         else
                         {
-                            ABLine.isBtnABLineOn = false;
+                            ABLine.isBtnLineOn = false;
                         }
                     }
 
@@ -1178,7 +1178,7 @@ namespace ABC
                     writer.WriteLine("$ABLine");
 
                     //true or false if ABLine is set
-                    if (ABLine.isABLineSet) writer.WriteLine(true);
+                    if (ABLine.isLineSet) writer.WriteLine(true);
                     else writer.WriteLine(false);
 
                     writer.WriteLine(ABLine.abHeading.ToString(CultureInfo.InvariantCulture));

@@ -309,7 +309,7 @@ namespace ABC
                     curve.GetCurrentCurveLine(pivotAxlePos, steerAxlePos);
                 }
 
-                if (ABLine.isABLineSet)
+                if (ABLine.isLineSet)
                 {
                     ABLine.GetCurrentABLine(pivotAxlePos, steerAxlePos);
                 }                
@@ -603,7 +603,7 @@ namespace ABC
                     sectionCounter++;
                 }
             }
-            if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) ||
+            if ((ABLine.isBtnLineOn && !ct.isContourBtnOn && ABLine.isLineSet && isAutoSteerBtnOn) ||
                         (!ct.isContourBtnOn && curve.isCurveBtnOn && curve.isCurveSet && isAutoSteerBtnOn))
             {
                 //no contour recorded
@@ -611,7 +611,7 @@ namespace ABC
             }
             else
             {
-                //if (ABLine.isABLineSet && isAutoSteerBtnOn)
+                //if (ABLine.isLineSet && isAutoSteerBtnOn)
 
 
                 //Contour Base Track.... At least One section on, turn on if not
