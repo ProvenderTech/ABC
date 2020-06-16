@@ -28,6 +28,31 @@ namespace ABC
 
         private void FormABLine_Load(object sender, EventArgs e)
         {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip(btnAPoint, "btnAPoint");
+            ToolTip ToolTip2 = new ToolTip();
+            ToolTip2.SetToolTip(btnBPoint, "btnBPoint");
+            ToolTip ToolTip3 = new ToolTip();
+            ToolTip3.SetToolTip(btnABLineOk, "btnABLineOk");
+            ToolTip ToolTip4 = new ToolTip();
+            ToolTip4.SetToolTip(btnDnABHeadingBy1, "btnDnABHeadingBy1");
+            ToolTip ToolTip5 = new ToolTip();
+            ToolTip5.SetToolTip(btnUpABHeadingBy1, "btnUpABHeadingBy1");
+            ToolTip ToolTip6 = new ToolTip();
+            ToolTip6.SetToolTip(btnAddToFile, "btnAddToFile");
+            ToolTip ToolTip7 = new ToolTip();
+            ToolTip7.SetToolTip(btnListDelete, "btnListDelete");
+            ToolTip ToolTip8 = new ToolTip();
+            ToolTip8.SetToolTip(btnListUse, "btnListUse");
+            ToolTip ToolTip9 = new ToolTip();
+            ToolTip9.SetToolTip(btnPlus90, "btnPlus90");
+            ToolTip ToolTip10 = new ToolTip();
+            ToolTip10.SetToolTip(btnDeleteAB, "btnDeleteAB");
+            ToolTip ToolTip11 = new ToolTip();
+            ToolTip11.SetToolTip(btnDnABHeading, "btnDnABHeading");
+            ToolTip ToolTip12 = new ToolTip();
+            ToolTip12.SetToolTip(btnUpABHeading, "btnUpABHeading");
+
             //different start based on AB line already set or not
             if (mf.ABLine.isLineSet)
             {
