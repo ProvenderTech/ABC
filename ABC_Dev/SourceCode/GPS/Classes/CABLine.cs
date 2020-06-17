@@ -12,7 +12,8 @@ namespace ABC
         public string fieldName { get; set; }
 
         //constructor
-        public CQuicks(string varFieldName = "North South", double varHeading = 0, double varX = 0, double varY = 0)
+        public CQuicks(string varFieldName = "North South", 
+                       double varHeading = 0, double varX = 0, double varY = 0)
         {
             fieldName = varFieldName;
             heading = varHeading;
@@ -45,32 +46,32 @@ namespace ABC
 
         public double howManyPathsAway;
 
-        //tramlines
-        //Color tramColor = Color.YellowGreen;
+        // tramlines
+        // Color tramColor = Color.YellowGreen;
         public int tramPassEvery;
         public bool isOnTramLine;
 
         public int passBasedOn;
 
-        //pointers to mainform controls
+        // pointers to mainform controls
         private readonly FormGPS mf;
 
-        //the two inital A and B points
+        // A point
         public vec2 refPoint1 = new vec2(0.2, 0.2);
-
+        // B point
         public vec2 refPoint2 = new vec2(0.3, 0.3);
 
-        //the reference line endpoints
+        // the reference line endpoints
         public vec2 refLineP1 = new vec2(0.0, 0.0);
 
         public vec2 refLineP2 = new vec2(0.0, 1.0);
 
-        //the current AB guidance line
+        // the current AB guidance line
         public vec2 currentLineP1 = new vec2(0.0, 0.0);
 
         public vec2 currentLineP2 = new vec2(0.0, 1.0);
 
-        //pure pursuit values
+        // pure pursuit values
         public vec2 goalPoint = new vec2(0, 0);
 
         public vec2 radiusPoint = new vec2(0, 0);
@@ -78,15 +79,24 @@ namespace ABC
         public double rEast, rNorth;
         public double ppRadius;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="f">main form used</param>
         public CABLine(FormGPS f)
         {
-            //constructor
+            // constructor
             mf = f;
+            // sets tram line on
             isOnTramLine = true;
         }
 
+        /// <summary>
+        /// Deletes an AB line from the AB list
+        /// </summary>
         public void DeleteAB()
         {
+            // clears values for the saved AB line
             refPoint1 = new vec2(0.0, 0.0);
             refPoint2 = new vec2(0.0, 1.0);
 
@@ -99,16 +109,24 @@ namespace ABC
             abHeading = 0.0;
             passNumber = 0.0;
             howManyPathsAway = 0.0;
+            // declares the line is not set due to the current line being deleted.
             isLineSet = false;
         }
 
+        /// <summary>
+        /// Sets the AB line when the B point is declared
+        /// </summary>
         public void SetABLineByBPoint()
         {
+            // grabs the current east and north coordinates from the NEMA code from "pn" object
             refPoint2.easting = mf.pn.fix.easting;
             refPoint2.northing = mf.pn.fix.northing;
 
             //calculate the AB Heading
-            abHeading = Math.Atan2(refPoint2.easting - refPoint1.easting, refPoint2.northing - refPoint1.northing);
+            abHeading = Math.Atan2(refPoint2.easting - refPoint1.easting, 
+                                   refPoint2.northing - refPoint1.northing);
+
+            // sets the heading to a positive radian
             if (abHeading < 0) abHeading += glm.twoPI;
 
             //sin x cos z for endpoints, opposite for additional lines
@@ -121,6 +139,9 @@ namespace ABC
             isLineSet = true;
         }
 
+        /// <summary>
+        /// Set the reference lines if the heading is already found
+        /// </summary>
         public void SetABLineByHeading()
         {
             //heading is set in the AB Form
