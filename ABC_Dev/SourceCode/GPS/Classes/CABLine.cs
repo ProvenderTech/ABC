@@ -464,9 +464,13 @@ namespace ABC
             GL.PointSize(8.0f);
             GL.Begin(PrimitiveType.Points);
 
-            GL.Color3(0.95f, 0.0f, 0.0f);
+            // *** COLOR FOR POINT A ****
+            GL.Color3(0.0f, 0.0f, 1.0f);
+            // **************************
             GL.Vertex3(refPoint1.easting, refPoint1.northing, 0.0);
-            GL.Color3(0.0f, 0.90f, 0.95f);
+            // *** COLOR FOR POINT B ****
+            GL.Color3(1.0f, 0.0f, 0.0f);
+            // **************************
             GL.Vertex3(refPoint2.easting, refPoint2.northing, 0.0);
             GL.End();
             GL.PointSize(1.0f);
@@ -478,7 +482,9 @@ namespace ABC
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineStipple(1, 0x07F0);
                 GL.Begin(PrimitiveType.Lines);
-                GL.Color3(0.49f, 0.25f, 0.37f);
+                // *** COLOR FOR AB REFERENCE LINE ****
+                GL.Color3(0.30f, 1.0f, 0.5f);
+                // ************************************
                 GL.Vertex3(refLineP1.easting, refLineP1.northing, 0);
                 GL.Vertex3(refLineP2.easting, refLineP2.northing, 0);
 
@@ -488,7 +494,9 @@ namespace ABC
                 //draw current AB Line
                 GL.LineWidth(3);
                 GL.Begin(PrimitiveType.Lines);
-                GL.Color3(0.9f, 0.0f, 0.0f);
+                // *** COLOR FOR ACTUAL AB LINE ****
+                GL.Color3(1.0f, 0.1f, 0.1f);
+                // *********************************
 
                 //calculate if tram line is here
                 isOnTramLine = true;
