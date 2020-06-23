@@ -11,7 +11,7 @@ namespace ABC
         public double heading { get; set; }
         public string fieldName { get; set; }
 
-        //constructor
+        // constructor
         public CQuicks(string varFieldName = "North South", 
                        double varHeading = 0, double varX = 0, double varY = 0)
         {
@@ -122,17 +122,19 @@ namespace ABC
             refPoint2.easting = mf.pn.fix.easting;
             refPoint2.northing = mf.pn.fix.northing;
 
-            //calculate the AB Heading
+            // calculate the AB Heading
             abHeading = Math.Atan2(refPoint2.easting - refPoint1.easting, 
                                    refPoint2.northing - refPoint1.northing);
 
             // sets the heading to a positive radian
             if (abHeading < 0) abHeading += glm.twoPI;
 
-            //sin x cos z for endpoints, opposite for additional lines
+            // sin x cos z for endpoints, opposite for additional lines
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
             refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
             refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
@@ -144,10 +146,12 @@ namespace ABC
         /// </summary>
         public void SetABLineByHeading()
         {
-            //heading is set in the AB Form
+            // heading is set in the AB Form
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
             refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
             refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
@@ -155,8 +159,12 @@ namespace ABC
             refPoint2.northing = refLineP2.northing;
 
             isLineSet = true;
+
         }
 
+        /// <summary>
+        ///  Most likely choosing which AB line to snap to.
+        /// </summary>
         public void SnapABLine()
         {
             double headingCalc;
@@ -164,13 +172,15 @@ namespace ABC
             if (isOnRightSideCurrentLine) headingCalc = abHeading + glm.PIBy2;
             else headingCalc = abHeading - glm.PIBy2;
 
-            //calculate the new points for the reference line and points
+            // calculate the new points for the reference line and points
             refPoint1.easting = (Math.Sin(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPoint1.easting;
             refPoint1.northing = (Math.Cos(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPoint1.northing;
 
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP1.easting = refPoint1.easting - (Math.Sin(abHeading) * 4000.0);
             refLineP1.northing = refPoint1.northing - (Math.Cos(abHeading) * 4000.0);
 
+            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
             refLineP2.easting = refPoint1.easting + (Math.Sin(abHeading) * 4000.0);
             refLineP2.northing = refPoint1.northing + (Math.Cos(abHeading) * 4000.0);
 
@@ -178,12 +188,16 @@ namespace ABC
             refPoint2.northing = refLineP2.northing;
         }
 
+        /// <summary>
+        /// Move the AB line dependent of the distance passed in
+        /// </summary>
+        /// <param name="dist">distance value for knowing how far to move the AB Line</param>
         public void MoveABLine(double dist)
         {
-            //calculate the heading 90 degrees to ref ABLine heading
+            // calculate the heading 90 degrees to ref ABLine heading
             double headingCalc = isLineSameAsVehicleHeading ? abHeading + glm.PIBy2 : abHeading - glm.PIBy2;
 
-            //calculate the new points for the reference line and points
+            // calculate the new points for the reference line and points
             refPoint1.easting = (Math.Sin(headingCalc) * dist) + refPoint1.easting;
             refPoint1.northing = (Math.Cos(headingCalc) * dist) + refPoint1.northing;
 
@@ -196,27 +210,34 @@ namespace ABC
             refPoint2.easting = refLineP2.easting;
             refPoint2.northing = refLineP2.northing;
         }
-
+        // angle velocity
         public double angVel;
 
+        /// <summary>
+        /// Getting the current AB Line the tractor is on.
+        /// </summary>
+        /// <param name="pivot"></param>
+        /// <param name="steer"></param>
         public void GetCurrentABLine(Vec3 pivot, Vec3 steer)
         {
             if (mf.isStanleyUsed)
             {
-                //move the ABLine over based on the overlap amount set in vehicle
+                // move the ABLine over based on the overlap amount set in vehicle
                 double widthMinusOverlap = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
 
-                //x2-x1
+                // x2-x1
                 double dx = refLineP2.easting - refLineP1.easting;
-                //z2-z1
+                // z2-z1
                 double dy = refLineP2.northing - refLineP1.northing;
 
-                //how far are we away from the reference line at 90 degrees
+                // how far are we away from the reference line at 90 degrees
                 distanceFromRefLine = ((dy * pivot.easting) - (dx * pivot.northing) + (refLineP2.easting
                                         * refLineP1.northing) - (refLineP2.northing * refLineP1.easting))
                                             / Math.Sqrt((dy * dy) + (dx * dx));
 
-                //sign of distance determines which side of line we are on
+                // figures out which side of the line were on. 
+                // refLineSide = 1  // Right of Line 
+                // refLineSide = -1 // Left of Line 
                 if (distanceFromRefLine > 0) refLineSide = 1;
                 else refLineSide = -1;
 
