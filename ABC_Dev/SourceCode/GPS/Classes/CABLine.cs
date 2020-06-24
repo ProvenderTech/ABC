@@ -216,8 +216,9 @@ namespace ABC
         /// <summary>
         /// Getting the current AB Line the tractor is on.
         /// </summary>
-        /// <param name="pivot"></param>
-        /// <param name="steer"></param>
+        /// <param name="pivot">The difference from the GPS location to the pivot point
+        ///                     which is the back wheel</param>
+        /// <param name="steer">The difference from the back wheel to the front wheel </param>
         public void GetCurrentABLine(Vec3 pivot, Vec3 steer)
         {
             if (mf.isStanleyUsed)
