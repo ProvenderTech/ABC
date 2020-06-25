@@ -561,7 +561,7 @@ namespace ABC
                     else mf.mc.relayRateData[mf.mc.rdTramLine] = 0;
                 }
 
-                //based on line pass, make ref purple
+                //based on line pass
                 if (Math.Abs(passBasedOn - (int)passNumber) <= 0 && tramPassEvery != 0) GL.Color3(0.990f, 0.190f, 0.990f);
 
                 GL.Vertex3(currentLineP1.easting, currentLineP1.northing, 0.0);
@@ -644,7 +644,7 @@ namespace ABC
                     //Draw lookahead Point
                     GL.PointSize(8.0f);
                     GL.Begin(PrimitiveType.Points);
-                    GL.Color3(1.0f, 1.0f, 0.0f);
+                    GL.Color3(1.0f, .42f, 0.50f);
                     GL.Vertex3(goalPoint.easting, goalPoint.northing, 0.0);
                     //GL.Vertex3(rEast, rNorth, 0.0);
                     GL.End();
