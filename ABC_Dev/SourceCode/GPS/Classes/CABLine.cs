@@ -501,6 +501,9 @@ namespace ABC
             mf.guidanceLineSteerAngle = (Int16)(steerAngle * 100);
         }
 
+        /// <summary>
+        /// draws the current AB line and ref line. In addition draws the tram lines.
+        /// </summary>
         public void DrawABLines()
         {
             //Draw AB Points
@@ -644,7 +647,7 @@ namespace ABC
                     //Draw lookahead Point
                     GL.PointSize(8.0f);
                     GL.Begin(PrimitiveType.Points);
-                    GL.Color3(1.0f, .42f, 0.50f);
+                    GL.Color3(0f, 0f, 0.60f);
                     GL.Vertex3(goalPoint.easting, goalPoint.northing, 0.0);
                     //GL.Vertex3(rEast, rNorth, 0.0);
                     GL.End();
