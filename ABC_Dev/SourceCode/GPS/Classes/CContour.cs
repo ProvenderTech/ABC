@@ -736,7 +736,7 @@ namespace ABC
                     //{
                     //    //invalid distance so tell AS module
                     //    distanceFromCurrentLine = 32000;
-                    //    mf.guidanceLineDistanceOff = 32000;
+                    //    mainForm.guidanceLineDistanceOff = 32000;
                     //    return;
                     //}
 

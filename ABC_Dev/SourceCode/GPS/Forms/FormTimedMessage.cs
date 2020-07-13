@@ -6,14 +6,14 @@ namespace ABC
     public partial class FormTimedMessage : Form
     {
         //class variables
-        //private FormGPS mf = null;
+        //private FormGPS mainForm = null;
 
         public FormTimedMessage(int timeInMsec, string str, string str2)
         {
             InitializeComponent();
 
             //get copy of the calling main form
-            //mf = callingForm as FormGPS;
+            //mainForm = callingForm as FormGPS;
 
             lblMessage.Text = str;
             lblMessage2.Text = str2;

@@ -542,7 +542,7 @@ namespace ABC
 //        string password;
 //        string stream;
 //        IPAddress BroadCasterIP;
-//        private readonly FormGPS mf;
+//        private readonly FormGPS mainForm;
 
 //        /// <summary>
 //        /// Initialize
@@ -550,7 +550,7 @@ namespace ABC
 //        public CNtrip(FormGPS f)
 
 //        {
-//            mf = f;
+//            mainForm = f;
 //            BroadCasterIP = IPAddress.Parse("69.75.31.235"); //Select correct Address
 //            BroadCasterPort = 2101; //Select correct port (usually 80 or 2101)
 //            stream = "SRG"; //Insert the correct stream
@@ -649,12 +649,12 @@ namespace ABC
 //            try
 //            {
 
-//                if (mf.sp.IsOpen)
+//                if (mainForm.sp.IsOpen)
 //                {
 //                    //    GPS.WriteToGPS(returndata); //Send RTCM data to GPS
 //                    // string togps = System.Text.Encoding.UTF8.GetString(returndata);
-//                    //mf.sp.WriteLine(togps);
-//                    mf.sp.Write(returndata, 0, returndata.Length);
+//                    //mainForm.sp.WriteLine(togps);
+//                    mainForm.sp.Write(returndata, 0, returndata.Length);
 //                }
 
 

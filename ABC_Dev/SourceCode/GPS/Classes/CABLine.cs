@@ -54,7 +54,7 @@ namespace ABC
         public int passBasedOn;
 
         // pointers to mainform controls
-        private readonly FormGPS mf;
+        private readonly FormGPS mainForm;
 
         // A point
         public vec2 refPoint1 = new vec2(0.2, 0.2);
@@ -86,7 +86,7 @@ namespace ABC
         public CABLine(FormGPS f)
         {
             // constructor
-            mf = f;
+            mainForm = f;
             // sets tram line on
             isOnTramLine = true;
         }
@@ -119,8 +119,8 @@ namespace ABC
         public void SetABLineByBPoint()
         {
             // grabs the current east and north coordinates from the NEMA code from "pn" object
-            refPoint2.easting = mf.pn.fix.easting;
-            refPoint2.northing = mf.pn.fix.northing;
+            refPoint2.easting = mainForm.pn.fix.easting;
+            refPoint2.northing = mainForm.pn.fix.northing;
 
             // calculate the AB Heading
             abHeading = Math.Atan2(refPoint2.easting - refPoint1.easting, 
@@ -221,10 +221,10 @@ namespace ABC
         /// <param name="steer">The difference from the back wheel to the front wheel </param>
         public void GetCurrentABLine(Vec3 pivot, Vec3 steer)
         {
-            if (mf.isStanleyUsed)
+            if (mainForm.isStanleyUsed)
             {
                 // move the ABLine over based on the overlap amount set in vehicle
-                double widthMinusOverlap = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
+                double widthMinusOverlap = mainForm.vehicle.toolWidth - mainForm.vehicle.toolOverlap;
 
                 // x2-x1
                 double dx = refLineP2.easting - refLineP1.easting;
@@ -252,7 +252,7 @@ namespace ABC
                 passNumber = Convert.ToInt32(refLineSide * howManyPathsAway);
 
                 //calculate the new point that is number of implement widths over
-                double toolOffset = mf.vehicle.toolOffset;
+                double toolOffset = mainForm.vehicle.toolOffset;
                 vec2 point1;
 
                 //depending which way you are going, the offset can be either side
@@ -292,7 +292,7 @@ namespace ABC
                 distanceFromCurrentLine = Math.Abs(distanceFromCurrentLine);
 
                 //Subtract the two headings, if > 1.57 its going the opposite heading as refAB
-                abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
+                abFixHeadingDelta = (Math.Abs(mainForm.fixHeading - abHeading));
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
 
                 isLineSameAsVehicleHeading = abFixHeadingDelta < glm.PIBy2;
@@ -333,19 +333,19 @@ namespace ABC
                 if (abFixHeadingDelta > glm.PIBy2) abFixHeadingDelta -= Math.PI;
                 else if (abFixHeadingDelta < -glm.PIBy2) abFixHeadingDelta += Math.PI;
 
-                abFixHeadingDelta *= mf.vehicle.stanleyHeadingErrorGain;
+                abFixHeadingDelta *= mainForm.vehicle.stanleyHeadingErrorGain;
                 if (abFixHeadingDelta > 0.4) abFixHeadingDelta = 0.4;
                 if (abFixHeadingDelta < -0.4) abFixHeadingDelta = -0.4;
 
-                steerAngle = Math.Atan((distanceFromCurrentLine * mf.vehicle.stanleyGain) / ((mf.pn.speed * 0.277777) + 1));
+                steerAngle = Math.Atan((distanceFromCurrentLine * mainForm.vehicle.stanleyGain) / ((mainForm.pn.speed * 0.277777) + 1));
 
                 if (steerAngle > 0.4) steerAngle = 0.4;
                 if (steerAngle < -0.4) steerAngle = -0.4;
 
                 steerAngle = glm.toDegrees((steerAngle + abFixHeadingDelta) * -1.0);
 
-                if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
-                if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
+                if (steerAngle < -mainForm.vehicle.maxSteerAngle) steerAngle = -mainForm.vehicle.maxSteerAngle;
+                if (steerAngle > mainForm.vehicle.maxSteerAngle) steerAngle = mainForm.vehicle.maxSteerAngle;
 
                 //Convert to millimeters
                 distanceFromCurrentLine = Math.Round(distanceFromCurrentLine * 1000.0, MidpointRounding.AwayFromZero);
@@ -353,7 +353,7 @@ namespace ABC
             else
             {
                 //move the ABLine over based on the overlap amount set in vehicle
-                double widthMinusOverlap = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
+                double widthMinusOverlap = mainForm.vehicle.toolWidth - mainForm.vehicle.toolOverlap;
 
                 //x2-x1
                 double dx = refLineP2.easting - refLineP1.easting;
@@ -379,7 +379,7 @@ namespace ABC
                 passNumber = Convert.ToInt32(refLineSide * howManyPathsAway);
 
                 //calculate the new point that is number of implement widths over
-                double toolOffset = mf.vehicle.toolOffset;
+                double toolOffset = mainForm.vehicle.toolOffset;
                 vec2 point1;
 
                 //depending which way you are going, the offset can be either side
@@ -419,11 +419,11 @@ namespace ABC
                 distanceFromCurrentLine = Math.Abs(distanceFromCurrentLine);
 
                 //update base on autosteer settings and distance from line
-                double goalPointDistance = mf.vehicle.UpdateGoalPointDistance(distanceFromCurrentLine);
-                mf.lookaheadActual = goalPointDistance;
+                double goalPointDistance = mainForm.vehicle.UpdateGoalPointDistance(distanceFromCurrentLine);
+                mainForm.lookaheadActual = goalPointDistance;
 
                 //Subtract the two headings, if > 1.57 its going the opposite heading as refAB
-                abFixHeadingDelta = (Math.Abs(mf.fixHeading - abHeading));
+                abFixHeadingDelta = (Math.Abs(mainForm.fixHeading - abHeading));
                 if (abFixHeadingDelta >= Math.PI) abFixHeadingDelta = Math.Abs(abFixHeadingDelta - glm.twoPI);
 
                 // ** Pure pursuit ** - calc point on ABLine closest to current position
@@ -453,15 +453,15 @@ namespace ABC
                     = glm.DistanceSquared(goalPoint.northing, goalPoint.easting, pivot.northing, pivot.easting);
 
                 //calculate the the new x in local coordinates and steering angle degrees based on wheelbase
-                double localHeading = glm.twoPI - mf.fixHeading;
+                double localHeading = glm.twoPI - mainForm.fixHeading;
                 ppRadius = goalPointDistanceDSquared / (2 * (((goalPoint.easting - pivot.easting) * Math.Cos(localHeading))
                     + ((goalPoint.northing - pivot.northing) * Math.Sin(localHeading))));
 
                 steerAngle = glm.toDegrees(Math.Atan(2 * (((goalPoint.easting - pivot.easting) * Math.Cos(localHeading))
-                    + ((goalPoint.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase
+                    + ((goalPoint.northing - pivot.northing) * Math.Sin(localHeading))) * mainForm.vehicle.wheelbase
                     / goalPointDistanceDSquared));
-                if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
-                if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
+                if (steerAngle < -mainForm.vehicle.maxSteerAngle) steerAngle = -mainForm.vehicle.maxSteerAngle;
+                if (steerAngle > mainForm.vehicle.maxSteerAngle) steerAngle = mainForm.vehicle.maxSteerAngle;
 
                 //limit circle size for display purpose
                 if (ppRadius < -500) ppRadius = -500;
@@ -474,14 +474,14 @@ namespace ABC
                 distanceFromCurrentLine = Math.Round(distanceFromCurrentLine * 1000.0, MidpointRounding.AwayFromZero);
 
                 //angular velocity in rads/sec  = 2PI * m/sec * radians/meters
-                angVel = glm.twoPI * 0.277777 * mf.pn.speed * (Math.Tan(glm.toRadians(steerAngle))) / mf.vehicle.wheelbase;
+                angVel = glm.twoPI * 0.277777 * mainForm.pn.speed * (Math.Tan(glm.toRadians(steerAngle))) / mainForm.vehicle.wheelbase;
 
                 //clamp the steering angle to not exceed safe angular velocity
-                if (Math.Abs(angVel) > mf.vehicle.maxAngularVelocity)
+                if (Math.Abs(angVel) > mainForm.vehicle.maxAngularVelocity)
                 {
-                    steerAngle = glm.toDegrees(steerAngle > 0 ? (Math.Atan((mf.vehicle.wheelbase * mf.vehicle.maxAngularVelocity)
-                        / (glm.twoPI * mf.pn.speed * 0.277777)))
-                        : (Math.Atan((mf.vehicle.wheelbase * -mf.vehicle.maxAngularVelocity) / (glm.twoPI * mf.pn.speed * 0.277777))));
+                    steerAngle = glm.toDegrees(steerAngle > 0 ? (Math.Atan((mainForm.vehicle.wheelbase * mainForm.vehicle.maxAngularVelocity)
+                        / (glm.twoPI * mainForm.pn.speed * 0.277777)))
+                        : (Math.Atan((mainForm.vehicle.wheelbase * -mainForm.vehicle.maxAngularVelocity) / (glm.twoPI * mainForm.pn.speed * 0.277777))));
                 }
 
                 //distance is negative if on left, positive if on right
@@ -497,8 +497,8 @@ namespace ABC
                 }
             }
 
-            mf.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
-            mf.guidanceLineSteerAngle = (Int16)(steerAngle * 100);
+            mainForm.guidanceLineDistanceOff = (Int16)distanceFromCurrentLine;
+            mainForm.guidanceLineSteerAngle = (Int16)(steerAngle * 100);
         }
 
         /// <summary>
@@ -560,8 +560,8 @@ namespace ABC
                         isOnTramLine = true;
                     }
 
-                    if (isOnTramLine) mf.mc.relayRateData[mf.mc.rdTramLine] = 1;
-                    else mf.mc.relayRateData[mf.mc.rdTramLine] = 0;
+                    if (isOnTramLine) mainForm.mc.relayRateData[mainForm.mc.rdTramLine] = 1;
+                    else mainForm.mc.relayRateData[mainForm.mc.rdTramLine] = 0;
                 }
 
                 //based on line pass
@@ -571,11 +571,11 @@ namespace ABC
                 GL.Vertex3(currentLineP2.easting, currentLineP2.northing, 0.0);
                 GL.End();
 
-                if (mf.isSideGuideLines)
+                if (mainForm.isSideGuideLines)
                 {
                     //get the tool offset and width
-                    double toolOffset = mf.vehicle.toolOffset * 2;
-                    double toolWidth = mf.vehicle.toolWidth - mf.vehicle.toolOverlap;
+                    double toolOffset = mainForm.vehicle.toolOffset * 2;
+                    double toolWidth = mainForm.vehicle.toolWidth - mainForm.vehicle.toolOverlap;
 
                     GL.Color3(0.0f, 0.90f, 0.50f);
                     GL.LineWidth(1);
@@ -614,12 +614,12 @@ namespace ABC
                     GL.End();
                 }
 
-                if (mf.isPureDisplayOn && !mf.isStanleyUsed)
+                if (mainForm.isPureDisplayOn && !mainForm.isStanleyUsed)
                 {
                     //draw the guidance circle
                     const int numSegments = 100;
                     {
-                        if (ppRadius < 50 && ppRadius > -50 && mf.isPureDisplayOn)
+                        if (ppRadius < 50 && ppRadius > -50 && mainForm.isPureDisplayOn)
                         {
                             GL.Color3(0.95f, 0.30f, 0.950f);
                             double theta = glm.twoPI / numSegments;

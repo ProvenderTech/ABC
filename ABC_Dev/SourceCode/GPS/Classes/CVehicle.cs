@@ -246,13 +246,13 @@ namespace ABC
             GL.PopMatrix();
             GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
 
-            //if (mf.camera.camFollowing)
-            //GL.Rotate(mf.camera.camPitch * -0.15, 1, 0, 0);
+            //if (mainForm.camera.camFollowing)
+            //GL.Rotate(mainForm.camera.camPitch * -0.15, 1, 0, 0);
 
             ////draw the vehicle Body
             //GL.Color3(0.95f, 0.95f, 0.95f);
             //GL.Enable(EnableCap.Texture2D);
-            //GL.BindTexture(TextureTarget.Texture2D, mf.texture[2]);        // Select Our Texture
+            //GL.BindTexture(TextureTarget.Texture2D, mainForm.texture[2]);        // Select Our Texture
             //GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             //GL.TexCoord2(0, 0); GL.Vertex2(2.8, 4); // Top Right
             //GL.TexCoord2(1, 0); GL.Vertex2(-2.8, 4); // Top Left
@@ -266,7 +266,7 @@ namespace ABC
             //GL.Color3(0.95f, 0.90f, 0.0f);
             GL.PointSize(6.0f);
             GL.Begin(PrimitiveType.Points);
-            //if (mf.isAreaOnRight) GL.Vertex3(2.0, -antennaPivot, 0);
+            //if (mainForm.isAreaOnRight) GL.Vertex3(2.0, -antennaPivot, 0);
             //else GL.Vertex3(-2.0, -antennaPivot, 0);
 
             //antenna

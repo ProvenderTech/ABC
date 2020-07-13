@@ -6,12 +6,12 @@ namespace ABC
     public partial class FormSaveOrNot : Form
     {
         //class variables
-        //private readonly FormGPS mf = null;
+        //private readonly FormGPS mainForm = null;
 
         public FormSaveOrNot()
         {
             //get copy of the calling main form
-            //mf = callingForm as FormGPS;
+            //mainForm = callingForm as FormGPS;
 
             InitializeComponent();
         }

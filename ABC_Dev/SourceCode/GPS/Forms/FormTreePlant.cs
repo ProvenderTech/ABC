@@ -41,7 +41,7 @@ namespace ABC
                 lblStepDistance.Text = (mf.distanceCurrentStepFix * 100).ToString("N1");
                 if (lastDist > mf.treeSpacingCounter)
                 {
-                    //lblSpacing.Text = mf.vehicle.treeSpacing.ToString();
+                    //lblSpacing.Text = mainForm.vehicle.treeSpacing.ToString();
                     wasRed = !wasRed;
                     trees++;
                     if (wasRed) btnZeroDistance.BackColor = Color.DarkSeaGreen;

@@ -110,7 +110,7 @@ namespace ABC
             lblLookAhead.Text = mf.vehicle.goalPointLookAheadSeconds.ToString();
             Properties.Vehicle.Default.setVehicle_goalPointLookAhead = mf.vehicle.goalPointLookAheadSeconds;
             Properties.Vehicle.Default.Save();
-            //mf.AutoSteerSettingsOutToPort();
+            //mainForm.AutoSteerSettingsOutToPort();
         }
 
         private void hsbarLookAheadUturnMult_ValueChanged(object sender, EventArgs e)

@@ -115,7 +115,7 @@ namespace ABC
         //    {
         //        tboxRateRelayIP.Text = "127.0.0.1";
         //        tboxRateRelayIP.Focus();
-        //        mf.TimedMessageBox(2000, "Invalid IP Address", "Set to Default Local 127.0.0.1");
+        //        mainForm.TimedMessageBox(2000, "Invalid IP Address", "Set to Default Local 127.0.0.1");
         //    }
         //}
 
