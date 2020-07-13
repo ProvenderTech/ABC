@@ -659,6 +659,9 @@ namespace ABC
             }
         }
 
+        /// <summary>
+        /// Function used to clear the current data in the AB object members.
+        /// </summary>
         public void ResetABLine()
         {
             refPoint1 = new vec2(0.2, 0.2);
