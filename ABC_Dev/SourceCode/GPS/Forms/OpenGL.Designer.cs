@@ -26,8 +26,6 @@ namespace ABC
         // When oglMain is created
         private void oglMain_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #1",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglMain.MakeCurrent();
             LoadGLTextures();
             GL.ClearColor(0.5122f, 0.58f, 0.75f, 1.0f);
@@ -40,8 +38,6 @@ namespace ABC
         //oglMain needs a resize
         private void oglMain_Resize(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #1.5",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
@@ -55,8 +51,6 @@ namespace ABC
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #2",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             if (isGPSPositionInitialized)
             {
                 oglMain.MakeCurrent();
@@ -72,8 +66,6 @@ namespace ABC
                 camera.SetWorldCam(pivotAxlePos.easting, pivotAxlePos.northing, camHeading);
                 CalcFrustum();
 
-                MessageBox.Show("Some text", "Debug #2.1111111111111111111",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 worldGrid.DrawFieldSurface();
                 //GL.Disable(EnableCap.DepthTest);
                 GL.Enable(EnableCap.Blend);
@@ -84,8 +76,7 @@ namespace ABC
                 //section patch color
                 GL.Color4(redSections, grnSections, bluSections, (byte)160);
                 if (isDrawPolygons) GL.PolygonMode(MaterialFace.Front, PolygonMode.Line);
-                MessageBox.Show("Some text", "Debug #2.22222222222222222222222222",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 //draw patches of sections
                 for (int j = 0; j < vehicle.numSuperSection; j++)
                 {
@@ -153,13 +144,9 @@ namespace ABC
                         }
                     }
                 }
-                MessageBox.Show("Some text", "Debug #2.333333333333333333333333333333333",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                 GL.Color3(1, 1, 1);
-
-                MessageBox.Show("Some text", "Debug #2.444444444444444444444444444444444444",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 //draw contour line if button on 
                 if (ct.isContourBtnOn)
@@ -172,8 +159,6 @@ namespace ABC
                     if (curve.isCurveBtnOn) curve.DrawCurve();
                 }
 
-                MessageBox.Show("Some text", "Debug #2.55555555555555555555555555555",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //draw the vehicle/implement
                 vehicle.DrawVehicle();
 
@@ -195,8 +180,7 @@ namespace ABC
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.PushMatrix();
                 GL.LoadIdentity();
-                MessageBox.Show("Some text", "Debug #2.6666666666666666666666",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 if (isSkyOn)
                 {
                     //GL.Translate(0, 0, 0.9);
@@ -234,9 +218,6 @@ namespace ABC
                     }
                 }
 
-
-                MessageBox.Show("Some text", "Debug #2.77777777777777777777777777777777777",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (guidanceLineDistanceOff == 32020 || guidanceLineDistanceOff == 32000 || !isLightbarOn)
                 { }
                 else
@@ -329,9 +310,6 @@ namespace ABC
 
                 }
 
-                MessageBox.Show("Some text", "Debug #2.888888888888888888888888888888888888888",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 //LightBar if AB Line is set and turned on or contour
                 if (isLightbarOn)
                 {
@@ -417,28 +395,19 @@ namespace ABC
                 {
                     txtDistanceOffABLine.Visible = false;
                 }
-                MessageBox.Show("Some text", "Debug #2.999999999999999999999999",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 GL.Flush();//finish openGL commands
                 GL.PopMatrix();//  Pop the modelview.
-                MessageBox.Show("Some text", "Debug #2.KEKW",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 //  back to the projection and pop it, then back to the model view.
                 GL.MatrixMode(MatrixMode.Projection);
                 GL.PopMatrix();
                 GL.MatrixMode(MatrixMode.Modelview);
-                MessageBox.Show("Some text", "Debug #2.KEKWV2",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 //reset point size
                 GL.PointSize(1.0f);
-                MessageBox.Show("Some text", "Debug #2.KEKWV2.1",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 GL.Flush();
-                MessageBox.Show("Some text", "Debug #2.KEKWV2.2",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 oglMain.SwapBuffers();
-                MessageBox.Show("Some text", "Debug #2.KEKWV3",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 if (leftMouseDownOnOpenGL)
                 {
                     leftMouseDownOnOpenGL = false;
@@ -446,8 +415,7 @@ namespace ABC
 
                     //scan the center of click and a set of square points around
                     GL.ReadPixels(mouseX - 4, mouseY - 4, 8, 8, PixelFormat.Rgb, PixelType.UnsignedByte, data1);
-                    MessageBox.Show("Some text", "Debug #2.KEKWV4",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     //made it here so no flag found
                     flagNumberPicked = 0;
 
@@ -460,30 +428,20 @@ namespace ABC
                         }
                     }
                 }
-                MessageBox.Show("Some text", "Debug #2.KEKWV6",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //draw the section control window off screen buffer
                 oglBack.Refresh();
-                MessageBox.Show("Some text", "Debug #2.KEKWV7",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //draw the zoom window
                 if (threeSeconds != zoomUpdateCounter && !tabControl1.Visible)
                 {
                     zoomUpdateCounter = threeSeconds;
                     oglZoom.Refresh();
                 }
-                MessageBox.Show("Some text", "Debug #2.KEKWV8",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            MessageBox.Show("Some text", "Debug #2.BOOMER",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         //Draw section OpenGL window, not visible
         private void oglBack_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #3",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglBack.MakeCurrent();
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
@@ -492,8 +450,6 @@ namespace ABC
 
         private void oglBack_Resize(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #4",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglBack.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
@@ -505,17 +461,9 @@ namespace ABC
 
         private void oglBack_Paint(object sender, PaintEventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #5.000000000000000",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglBack.MakeCurrent();
-            MessageBox.Show("Some text", "Debug #5.111111111111111",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-            MessageBox.Show("Some text", "Debug #5.222222222222222",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.LoadIdentity();					// Reset The View
-            MessageBox.Show("Some text", "Debug #5.3333333333333333",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             //back the camera up
             GL.Translate(0, 0, -480);
 
@@ -533,9 +481,6 @@ namespace ABC
 
             //to draw or not the triangle patch
             bool isDraw;
-
-            MessageBox.Show("Some text", "Debug #5.111111111",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             //draw patches j= # of sections
             for (int j = 0; j < vehicle.numSuperSection; j++)
@@ -578,8 +523,6 @@ namespace ABC
                 }
             }
 
-            MessageBox.Show("Some text", "Debug #5.22222222222222",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.Flush();
 
             //Paint to context
@@ -794,34 +737,20 @@ namespace ABC
                 }
                 saveCounter = 0;
             }
-            MessageBox.Show("Some text", "Debug #5.5",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             //this is the end of the "frame". Now we wait for next NMEA sentence. 
         }
 
         private void oglZoom_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #6.00000000000000000",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglZoom.MakeCurrent();
-            MessageBox.Show("Some text", "Debug #6.111111111111111111111",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.Enable(EnableCap.CullFace);
-            MessageBox.Show("Some text", "Debug #6.333333333333333333333",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.CullFace(CullFaceMode.Back);
-            MessageBox.Show("Some text", "Debug #6.444444444444444444444",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.ClearColor(0.23122f, 0.2318f, 0.2315f, 1.0f);
-
-            MessageBox.Show("Some text", "Debug #6.555555555555555555555",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void oglZoom_Resize(object sender, EventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #7",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglZoom.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
@@ -837,8 +766,6 @@ namespace ABC
 
         private void oglZoom_Paint(object sender, PaintEventArgs e)
         {
-            MessageBox.Show("Some text", "Debug #8",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             oglZoom.MakeCurrent();
 
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
@@ -942,8 +869,6 @@ namespace ABC
 
         public void DrawLightBar(double Width, double Height, double offlineDistance)
         {
-            MessageBox.Show("Some text", "Debug #9",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             double down = 20;
             GL.LineWidth(1);
             //GL.Translate(0, 0, 0.01);
@@ -1057,17 +982,11 @@ namespace ABC
 
         public void CalcFrustum()
         {
-            MessageBox.Show("Some text", "Debug #10.0000000000000000000000",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             float[] proj = new float[16];							// For Grabbing The PROJECTION Matrix
             float[] modl = new float[16];							// For Grabbing The MODELVIEW Matrix
             float[] clip = new float[16];							// Result Of Concatenating PROJECTION and MODELVIEW
-            MessageBox.Show("Some text", "Debug #10.1111111111111111111111",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             GL.GetFloat(GetPName.ProjectionMatrix, proj);	// Grab The Current PROJECTION Matrix
             GL.GetFloat(GetPName.Modelview0MatrixExt, modl);   // Grab The Current MODELVIEW Matrix
-            MessageBox.Show("Some text", "Debug #10.2222222222222222222",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             // Concatenate (Multiply) The Two Matricies
             clip[0] = modl[0] * proj[0] + modl[1] * proj[4] + modl[2] * proj[8] + modl[3] * proj[12];
@@ -1127,16 +1046,12 @@ namespace ABC
             frustum[21] = clip[7] - clip[5];
             frustum[22] = clip[11] - clip[9];
             frustum[23] = clip[15] - clip[13];
-            MessageBox.Show("Some text", "Debug #10.3333333333333333",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public double maxFieldX, maxFieldY, minFieldX, minFieldY, fieldCenterX, fieldCenterY, maxFieldDistance;
         //determine mins maxs of patches and whole field.
         public void CalculateMinMax()
         {
-            MessageBox.Show("Some text", "Debug #11",
-            MessageBoxButtons.OK, MessageBoxIcon.Error);
             minFieldX = 9999999; minFieldY = 9999999;
             maxFieldX = -9999999; maxFieldY = -9999999;
 
