@@ -141,8 +141,8 @@ namespace ABC
         private void btnAPoint_Click(object sender, EventArgs e)
         {
 #pragma warning disable CS1690 // Accessing a member on a field of a marshal-by-reference class may cause a runtime exception
-            mf.ABLine.refPoint1.easting = mf.pn.fix.easting;
-            mf.ABLine.refPoint1.northing = mf.pn.fix.northing;
+            mf.ABLine.refPointA.easting = mf.pn.fix.easting;
+            mf.ABLine.refPointA.northing = mf.pn.fix.northing;
 #pragma warning restore CS1690 // Accessing a member on a field of a marshal-by-reference class may cause a runtime exception
             btnAPoint.Enabled = false;
             btnUpABHeading.Enabled = true;
@@ -206,8 +206,8 @@ namespace ABC
             //update the default
             mf.AB0.fieldName = mf.currentFieldDirectory;
             mf.AB0.heading = glm.toDegrees(mf.ABLine.abHeading);
-            mf.AB0.X = mf.ABLine.refPoint1.easting;
-            mf.AB0.Y = mf.ABLine.refPoint1.northing;
+            mf.AB0.X = mf.ABLine.refPointA.easting;
+            mf.AB0.Y = mf.ABLine.refPointA.northing;
             if (mf.ABLine.tramPassEvery == 0) mf.mc.relayRateData[mf.mc.rdTramLine] = 0;
 
             DialogResult = DialogResult.OK;
@@ -243,8 +243,8 @@ namespace ABC
             if (!btnAPoint.Enabled && !btnBPoint.Enabled)
             {
                 double pointAToFixDistance =
-                Math.Pow(mf.ABLine.refPoint1.easting - mf.pn.fix.easting, 2)
-                + Math.Pow(mf.ABLine.refPoint1.northing - mf.pn.fix.northing, 2);
+                Math.Pow(mf.ABLine.refPointA.easting - mf.pn.fix.easting, 2)
+                + Math.Pow(mf.ABLine.refPointA.northing - mf.pn.fix.northing, 2);
 
                 if (pointAToFixDistance > 100) btnBPoint.Enabled = true;
                 else lblKeepGoing.Text = Convert.ToInt16(100 - pointAToFixDistance).ToString();
@@ -279,8 +279,8 @@ namespace ABC
             {
                 //make it culture invariant
                 string line = mf.currentFieldDirectory + ',' + (Math.Round(glm.toDegrees(mf.ABLine.abHeading), 8)).ToString(CultureInfo.InvariantCulture)
-                + ',' + (Math.Round(mf.ABLine.refPoint1.easting, 3)).ToString(CultureInfo.InvariantCulture)
-                + ',' + (Math.Round(mf.ABLine.refPoint1.northing, 3)).ToString(CultureInfo.InvariantCulture);
+                + ',' + (Math.Round(mf.ABLine.refPointA.easting, 3)).ToString(CultureInfo.InvariantCulture)
+                + ',' + (Math.Round(mf.ABLine.refPointA.northing, 3)).ToString(CultureInfo.InvariantCulture);
 
                 //write out to file
                 writer.WriteLine(line);
@@ -345,9 +345,9 @@ namespace ABC
                 double temp = double.Parse(lvLines.SelectedItems[0].SubItems[1].Text, CultureInfo.InvariantCulture);
                 mf.ABLine.abHeading = glm.toRadians(temp);
                 temp = double.Parse(lvLines.SelectedItems[0].SubItems[2].Text, CultureInfo.InvariantCulture);
-                mf.ABLine.refPoint1.easting = temp;
+                mf.ABLine.refPointA.easting = temp;
                 temp = double.Parse(lvLines.SelectedItems[0].SubItems[3].Text, CultureInfo.InvariantCulture);
-                mf.ABLine.refPoint1.northing = temp;
+                mf.ABLine.refPointA.northing = temp;
                 mf.ABLine.SetABLineByHeading();
 
                 //save the ABLine

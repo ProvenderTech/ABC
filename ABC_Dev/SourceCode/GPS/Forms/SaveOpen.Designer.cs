@@ -844,20 +844,20 @@ namespace ABC
                             //refPoint1x,z
                             line = reader.ReadLine();
                             string[] words = line.Split(',');
-                            ABLine.refPoint1.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
-                            ABLine.refPoint1.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
+                            ABLine.refPointA.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
+                            ABLine.refPointA.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
 
                             //refPoint2x,z
                             line = reader.ReadLine();
                             words = line.Split(',');
-                            ABLine.refPoint2.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
-                            ABLine.refPoint2.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
+                            ABLine.refPointB.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
+                            ABLine.refPointB.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
 
                             //update the default
                             AB0.fieldName = currentFieldDirectory;
                             AB0.heading = glm.toDegrees(ABLine.abHeading);
-                            AB0.X = ABLine.refPoint1.easting;
-                            AB0.Y = ABLine.refPoint1.northing;
+                            AB0.X = ABLine.refPointA.easting;
+                            AB0.Y = ABLine.refPointA.northing;
 
                             //Tramline
                             line = reader.ReadLine();
@@ -865,11 +865,11 @@ namespace ABC
                             ABLine.tramPassEvery = int.Parse(words[0]);
                             ABLine.passBasedOn = int.Parse(words[1]);
 
-                            ABLine.refLineP1.easting = ABLine.refPoint1.easting - Math.Sin(ABLine.abHeading) * 10000.0;
-                            ABLine.refLineP1.northing = ABLine.refPoint1.northing - Math.Cos(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineAEndpoint.easting = ABLine.refPointA.easting - Math.Sin(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineAEndpoint.northing = ABLine.refPointA.northing - Math.Cos(ABLine.abHeading) * 10000.0;
 
-                            ABLine.refLineP2.easting = ABLine.refPoint1.easting + Math.Sin(ABLine.abHeading) * 10000.0;
-                            ABLine.refLineP2.northing = ABLine.refPoint1.northing + Math.Cos(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineBEndpoint.easting = ABLine.refPointA.easting + Math.Sin(ABLine.abHeading) * 10000.0;
+                            ABLine.refLineBEndpoint.northing = ABLine.refPointA.northing + Math.Cos(ABLine.abHeading) * 10000.0;
 
                             ABLine.isLineSet = true;
                             btnCurve.Enabled = false;
@@ -1182,8 +1182,8 @@ namespace ABC
                     else writer.WriteLine(false);
 
                     writer.WriteLine(ABLine.abHeading.ToString(CultureInfo.InvariantCulture));
-                    writer.WriteLine(ABLine.refPoint1.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPoint1.northing.ToString(CultureInfo.InvariantCulture));
-                    writer.WriteLine(ABLine.refPoint2.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPoint2.northing.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(ABLine.refPointA.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPointA.northing.ToString(CultureInfo.InvariantCulture));
+                    writer.WriteLine(ABLine.refPointB.easting.ToString(CultureInfo.InvariantCulture) + "," + ABLine.refPointB.northing.ToString(CultureInfo.InvariantCulture));
                     writer.WriteLine(ABLine.tramPassEvery.ToString(CultureInfo.InvariantCulture) + "," + ABLine.passBasedOn.ToString(CultureInfo.InvariantCulture));
                 }
 

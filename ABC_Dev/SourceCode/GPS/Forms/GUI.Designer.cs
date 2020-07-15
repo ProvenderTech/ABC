@@ -802,8 +802,8 @@ namespace ABC
             if (ABLine.isLineSet)
             {
                 ABLine.abHeading = glm.toRadians(AB0.heading);
-                ABLine.refPoint1.easting = AB0.X;
-                ABLine.refPoint1.northing = AB0.Y;
+                ABLine.refPointA.easting = AB0.X;
+                ABLine.refPointA.northing = AB0.Y;
                 ABLine.SetABLineByHeading();
             }
 

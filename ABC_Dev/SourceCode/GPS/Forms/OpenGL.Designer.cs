@@ -829,16 +829,16 @@ namespace ABC
 
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.9f, 0.5f, 0.7f);
-                GL.Vertex3(ABLine.refLineP1.easting, ABLine.refLineP1.northing, 0);
-                GL.Vertex3(ABLine.refLineP2.easting, ABLine.refLineP2.northing, 0);
+                GL.Vertex3(ABLine.refLineAEndpoint.easting, ABLine.refLineAEndpoint.northing, 0);
+                GL.Vertex3(ABLine.refLineBEndpoint.easting, ABLine.refLineBEndpoint.northing, 0);
                 GL.End();
                 GL.Disable(EnableCap.LineStipple);
 
                 //raw current AB Line
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.9f, 0.0f, 0.0f);
-                GL.Vertex3(ABLine.currentLineP1.easting, ABLine.currentLineP1.northing, 0.0);
-                GL.Vertex3(ABLine.currentLineP2.easting, ABLine.currentLineP2.northing, 0.0);
+                GL.Vertex3(ABLine.currentLine_PointA.easting, ABLine.currentLine_PointA.northing, 0.0);
+                GL.Vertex3(ABLine.currentLine_PointB.easting, ABLine.currentLine_PointB.northing, 0.0);
                 GL.End();
             }
 
