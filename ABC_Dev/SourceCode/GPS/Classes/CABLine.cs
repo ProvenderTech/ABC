@@ -27,6 +27,7 @@ namespace ABC
     /// </summary>
     public class CABLine
     {
+        static double endpointMultiplier= 4000.0;
         public double abHeading;
         public double abFixHeadingDelta;
 
@@ -123,13 +124,11 @@ namespace ABC
             if (abHeading < 0) abHeading += glm.twoPI;
 
             // sin x cos z for endpoints, opposite for additional lines
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * 4000.0);
-            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * endpointMultiplier);
+            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * endpointMultiplier);
 
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * 4000.0);
-            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * endpointMultiplier);
+            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * endpointMultiplier);
 
             isLineSet = true;
         }
@@ -140,13 +139,11 @@ namespace ABC
         public void SetABLineByHeading()
         {
             // heading is set in the AB Form
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * 4000.0);
-            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * endpointMultiplier);
+            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * endpointMultiplier);
 
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * 4000.0);
-            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * endpointMultiplier);
+            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * endpointMultiplier);
 
             refPointB.easting = refLineBEndpoint.easting;
             refPointB.northing = refLineBEndpoint.northing;
@@ -169,13 +166,11 @@ namespace ABC
             refPointA.easting = (Math.Sin(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPointA.easting;
             refPointA.northing = (Math.Cos(headingCalc) * Math.Abs(distanceFromCurrentLine) * 0.001) + refPointA.northing;
 
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * 4000.0);
-            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * endpointMultiplier);
+            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * endpointMultiplier);
 
-            // STILL UNSURE ABOUT THE 4000... I think this just defines the edges, but not sure why 400 - Nick
-            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * 4000.0);
-            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * endpointMultiplier);
+            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * endpointMultiplier);
 
             refPointB.easting = refLineBEndpoint.easting;
             refPointB.northing = refLineBEndpoint.northing;
@@ -194,11 +189,11 @@ namespace ABC
             refPointA.easting = (Math.Sin(headingCalc) * dist) + refPointA.easting;
             refPointA.northing = (Math.Cos(headingCalc) * dist) + refPointA.northing;
 
-            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * 4000.0);
-            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * 4000.0);
+            refLineAEndpoint.easting = refPointA.easting - (Math.Sin(abHeading) * endpointMultiplier);
+            refLineAEndpoint.northing = refPointA.northing - (Math.Cos(abHeading) * endpointMultiplier);
 
-            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * 4000.0);
-            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * 4000.0);
+            refLineBEndpoint.easting = refPointA.easting + (Math.Sin(abHeading) * endpointMultiplier);
+            refLineBEndpoint.northing = refPointA.northing + (Math.Cos(abHeading) * endpointMultiplier);
 
             refPointB.easting = refLineBEndpoint.easting;
             refPointB.northing = refLineBEndpoint.northing;
